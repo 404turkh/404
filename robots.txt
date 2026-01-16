@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://harambro5.com/sitemap.xml
