@@ -1,5 +1,5 @@
 // ====== REKLAM LİNKİN ======
-const adLink = "BURAYA_REKLAM_LINKINI_KOY";
+const adLink = "https://hopeful-border.com/bl3.VG0aPG3rpivYbPmoVAJ/ZSD/0c2dNyz/Qj4dMfjhUc5/LgT/Yk3INkD/g/yyNpjiAH";
 
 // ====== ÇİFT TIKLAMA SİSTEMİ ======
 let clickCount = {};
