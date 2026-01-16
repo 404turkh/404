@@ -1,0 +1,126 @@
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:linear-gradient(#e8f0ff,#f5f9ff);
+}
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+}
+
+.nav-logo{
+width:46px;
+height:46px;
+border-radius:50%;
+cursor:pointer;
+}
+
+.nav-center{
+background:#fff;
+padding:6px;
+border-radius:40px;
+display:flex;
+gap:6px;
+}
+
+.tab{
+padding:8px 18px;
+border-radius:30px;
+cursor:pointer;
+font-weight:500;
+}
+
+.tab.active{
+background:#4a6cf7;
+color:white;
+}
+
+.haram-btn{
+border:none;
+background:#4a6cf7;
+color:white;
+padding:8px 18px;
+border-radius:30px;
+cursor:pointer;
+}
+
+.list{
+max-width:900px;
+margin:20px auto;
+}
+
+.card{
+background:white;
+margin:14px;
+padding:15px;
+border-radius:22px;
+display:flex;
+align-items:center;
+box-shadow:0 6px 15px rgba(0,0,0,0.06);
+cursor:pointer;
+}
+
+.logo{
+width:58px;
+height:58px;
+border-radius:16px;
+margin-right:15px;
+object-fit:cover;
+}
+
+.text{
+flex:1;
+}
+
+.text h4{margin:0;font-size:16px;}
+.text p{
+margin:6px 0;
+color:#777;
+font-size:14px;
+line-height:1.3;
+}
+
+.btn{
+background:#4a6cf7;
+color:white;
+border:none;
+padding:8px 18px;
+border-radius:20px;
+font-weight:bold;
+}
+
+footer{
+padding:30px;
+text-align:center;
+}
+
+.footer-box{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.footer-card{
+background:white;
+padding:20px;
+border-radius:15px;
+width:260px;
+box-shadow:0 5px 10px rgba(0,0,0,0.04);
+}
+
+.copy{
+margin-top:18px;
+color:gray;
+font-size:14px;
+}
+
+/* Responsive */
+@media(max-width:600px){
+.nav-center{transform:scale(0.9);}
+.card{margin:10px;}
+.logo{width:52px;height:52px;}
+}
