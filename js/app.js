@@ -104,7 +104,7 @@ list3: [
 {logo:"raga.png",name:"Agar.io",desc:"Coinskinfree mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/Agario-coinskinfree-26.3.5.ipa"},
 {logo:"raga.png",name:"Agar.io",desc:"Anarky + Shark mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/anarky+shark.26.3.5.ipa"},
 {logo:"raga.png",name:"Agar.io",desc:"Biteskin mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/biteskin.26.3.5.ipa"},
-{logo:"raga.png",name:"Agar.io",desc:"Kahraba Mod Requires License",url:""}
+{logo:"raga.png",name:"Agar.io",desc:"Kahraba Mod Requires License",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/26.3.5.kahraba.ipa"}
 ],
 
 list4: [
