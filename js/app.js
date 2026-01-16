@@ -27,7 +27,7 @@ function openAd(){
 const data = {
 
 list1: [
-{logo:"favcion.png",name:"Dns Profile",desc:"Certificate",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1/byharambro.mobileconfig"},
+{logo:"images/favicon.png",name:"Dns Profile",desc:"",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1/byharambro.mobileconfig"},
 
 {logo:"ngisk.png",name:"KSign",desc:"Qingdao Rural Commercial Bank Co., Ltd",url:"https://api.khoindvn.eu.org/KXcveB"},
 {logo:"ngisk.png",name:"KSign",desc:"Commission on Elections",url:"https://api.khoindvn.io.vn/g65UJy"},
