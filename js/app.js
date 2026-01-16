@@ -27,8 +27,8 @@ function openAd(){
 const data = {
 
 list1: [
-{logo:"images/favicon.png",name:"Dns Profile",desc:"",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1/byharambro.mobileconfig"},
-
+{logo:"snd",name:"Dns Profile",desc:"",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1/byharambro.mobileconfig"},
+{logo:"snd.png",name:"Dns Profile",desc:"Config",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1/bypassrevokedns.mobileconfig"},
 {logo:"ngisk.png",name:"KSign",desc:"Qingdao Rural Commercial Bank Co., Ltd",url:"https://api.khoindvn.eu.org/KXcveB"},
 {logo:"ngisk.png",name:"KSign",desc:"Commission on Elections",url:"https://api.khoindvn.io.vn/g65UJy"},
 {logo:"ngisk.png",name:"KSign Com V1",desc:"Commission on Elections",url:"https://api.khoindvn.io.vn/ZsgCVX"},
@@ -62,7 +62,7 @@ list1: [
 ],
 
 list2: [
-{logo:"tw.png",name:"ksing&esing",desc:"Certificate",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/ESignCert.zip"},
+{logo:"tw.png",name:"esing",desc:"Certificate",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/ESignCert.zip"},
 
 {logo:"gnise.png",name:"ESign",desc:"Qingdao Rural Commercial Bank Co., Ltd",url:"https://api.khoindvn.eu.org/KXcveB"},
 {logo:"gnise.png",name:"ESign",desc:"Commission on Elections",url:"https://api.khoindvn.io.vn/jAbzrt"},
