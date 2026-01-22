@@ -1,25 +1,21 @@
-// ====== REKLAM LİNKİN ======
-const adLink = "https://hopeful-border.com/bl3.VG0aPG3rpivYbPmoVAJ/ZSD/0c2dNyz/Qj4dMfjhUc5/LgT/Yk3INkD/g/yyNpjiAH";
+// ================== REKLAM ==================
+const POP_AD_LINK = "https://hopeful-border.com/bl3.VG0aPG3rpivYbPmoVAJ/ZSD/0c2dNyz/Qj4dMfjhUc5/LgT/Yk3INkD/g/yyNpjiAH";
 
-// ====== ÇİFT TIKLAMA SİSTEMİ ======
-let clickCount = {};
+let popShown = false;
 
-function handleAction(url){
-  if(url === ""){ openAd(); return; }
-
-  if(!clickCount[url]) clickCount[url] = 0;
-  clickCount[url]++;
-
-  if(clickCount[url] == 1){
-    window.open(adLink,"_blank");
-  } else {
-    clickCount[url] = 0;
-    window.open(url,"_blank");
-  }
+function triggerPopOnce() {
+  if (popShown) return;
+  popShown = true;
+  window.open(POP_AD_LINK, "_blank");
 }
 
-function openAd(){
-  window.open(adLink,"_blank");
+function downloadApp(url) {
+  if (!url || url.trim() === "") return;
+  window.open(url, "_blank");
+}
+
+function openAd() {
+  triggerPopOnce();
 }
 
 // ====== DATA ======
@@ -131,58 +127,54 @@ list5: [
 };
 
 
-// ===== RENDER =====
-function showList(list,el){
-document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-el.classList.add('active');
+// ================== RENDER ==================
+function showList(list, el) {
 
-let html="";
-data[list].forEach((item,index)=>{
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
 
-// Varsayılan buton yazısı
-let buttonText = "INSTALL";
+  let html = "";
 
-// List3, List4, List5 → DOWNLOAD
-if(list === "list3" || list === "list4" || list === "list5"){
-  buttonText = "DOWNLOAD";
-}
+  data[list].forEach((item, index) => {
 
-// KSign (list1) → sadece ilk kart DOWNLOAD
-if(list === "list1" && index === 0){
-  buttonText = "DOWNLOAD";
-}
+    let buttonText = "INSTALL";
 
-// ESign (list2) → sadece ilk kart DOWNLOAD
-if(list === "list2" && index === 0){
-  buttonText = "DOWNLOAD";
-}
+    if (list === "list3" || list === "list4" || list === "list5") {
+      buttonText = "DOWNLOAD";
+    }
 
-html += `
-<div class="card" onclick="handleAction('${item.url}')">
-<img class="logo" src="images/${item.logo}">
-<div class="text">
-<h4>${item.name}</h4>
-<p>${item.desc}</p>
-</div>
-<button class="btn">${buttonText}</button>
-</div>
-`;
-});
+    if ((list === "list1" || list === "list2") && index === 0) {
+      buttonText = "DOWNLOAD";
+    }
 
-document.getElementById("lists").innerHTML = html;
+    html += `
+      <div class="card">
+        <img class="logo" src="images/${item.logo}">
+        <div class="text">
+          <h4>${item.name}</h4>
+          <p>${item.desc}</p>
+        </div>
+        <button class="btn"
+          onclick="event.stopPropagation(); triggerPopOnce(); downloadApp('${item.url}')">
+          ${buttonText}
+        </button>
+      </div>
+    `;
+  });
+
+  document.getElementById("lists").innerHTML = html;
 }
 
 showList('list1', document.querySelector('.tab'));
 
-// ===== HILLTOPADS IN-PAGE PUSH =====
+// ================== HILLTOPADS ==================
 (function(gxe){
-var d = document,
-    s = d.createElement('script'),
-    l = d.scripts[d.scripts.length - 1];
-s.settings = gxe || {};
-s.src = "//piercing-flower.com/byXpVTs.dAG/lH0EYCW/c_/zeLmj9AuwZNUolgkXPlTEYA3qNFD/ku1lOvTnYltUNOjfcq0lO/TlUa5aNzww";
-s.async = true;
-s.referrerPolicy = 'no-referrer-when-downgrade';
-l.parentNode.insertBefore(s, l);
+  var d = document,
+      s = d.createElement('script'),
+      l = d.scripts[d.scripts.length - 1];
+  s.settings = gxe || {};
+  s.src = "//piercing-flower.com/byXpVTs.dAG/lH0EYCW/c_/zeLmj9AuwZNUolgkXPlTEYA3qNFD/ku1lOvTnYltUNOjfcq0lO/TlUa5aNzww";
+  s.async = true;
+  s.referrerPolicy = 'no-referrer-when-downgrade';
+  l.parentNode.insertBefore(s, l);
 })();
-
