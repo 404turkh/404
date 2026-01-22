@@ -1,18 +1,54 @@
-// ================== POP SETTINGS ==================
-const POP_AD_LINK = "https://hopeful-border.com/bl3.VG0aPG3rpivYbPmoVAJ/ZSD/0c2dNyz/Qj4dMfjhUc5/LgT/Yk3INkD/g/yyNpjiAH";
+// ================== SMART POP SETTINGS ==================
 const POP_KEY = "harambro_pop_time";
 const POP_INTERVAL = 24 * 60 * 60 * 1000; // 24 saat
 
+const ADS = {
+  US_MOBILE: [
+    "https://hopeful-border.com/bQ3WVV0kP.3up/v_bQm/VUJdZwDz0Z2-NDz_QG4/MVjlUs5wLuToYG3KNdDJgLyYNSj/Au",
+    "https://hopeful-border.com/bk3.V/0/Pn3/p/vkbJmrVZJKZYDS0/2mNTzaQv5iNqj-I/0zLCTPY/3MNRDTku2CMijUUg"
+  ],
+  US_DESKTOP: [
+    "https://hopeful-border.com/bp3OVa0jP.3Rp-vnbbmvVHJvZVDo0B2VN_ziUi0cN/DkMZzDLwTeYi3/N/T/Q/0ZMLzpQF",
+    "https://hopeful-border.com/bm3.V/0WPG3opWvVbJmfVdJ/ZJDv0M2DNozEUH0uNFDrMt1WLeTSY-3WNRTsQW0NMTz/Yo"
+  ],
+  GLOBAL_MOBILE: [
+    "https://hopeful-border.com/b/3_Vh0hP.3SpZv/bqmdVGJVZWD/0C2uNlzoUB0sNcDLMV3nL/TBYH3jNnTUQM0WMtzUgf",
+    "https://hopeful-border.com/b.3wVl0/P/3npYvobimlVpJ/Z/DF0/2-NezqUr0/NADIMo5/LfTNYU3qNhTgQ/0/N/D/AN"
+  ],
+  GLOBAL_DESKTOP: [
+    "https://hopeful-border.com/bQ3_Ve0.P/3XptvTbgmlVvJSZDDU0j2YNVzYUD0ZNNDsQcxkLfTQY_3cN/T/Qi0gNTDsIl",
+    "https://hopeful-border.com/bN3.VP0/P-3mpRv/bwmnV/JMZwDt0P2oN/ztUy0WNGDoQiziLhTQYc3yNDTDQ/0SNaDnQN"
+  ]
+};
+
+function isMobile() {
+  return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+function isUS() {
+  const lang = navigator.language || "";
+  return lang.toLowerCase().includes("en-us");
+}
+
 function canShowPop() {
   const last = localStorage.getItem(POP_KEY);
-  if (!last) return true;
-  return (Date.now() - parseInt(last, 10)) > POP_INTERVAL;
+  return !last || Date.now() - last > POP_INTERVAL;
+}
+
+function getAdPool() {
+  if (isUS()) {
+    return isMobile() ? ADS.US_MOBILE : ADS.US_DESKTOP;
+  } else {
+    return isMobile() ? ADS.GLOBAL_MOBILE : ADS.GLOBAL_DESKTOP;
+  }
 }
 
 function smartClick(downloadUrl) {
   if (canShowPop()) {
-    localStorage.setItem(POP_KEY, Date.now().toString());
-    window.open(POP_AD_LINK, "_blank");
+    const pool = getAdPool();
+    const ad = pool[Math.floor(Math.random() * pool.length)];
+    window.open(ad, "_blank");
+    localStorage.setItem(POP_KEY, Date.now());
     return;
   }
 
@@ -132,14 +168,12 @@ list5: [
 
 // ================== RENDER ==================
 function showList(list, el) {
-
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
 
   let html = "";
 
   data[list].forEach(item => {
-
     html += `
       <div class="card">
         <img class="logo" src="images/${item.logo}">
@@ -147,8 +181,7 @@ function showList(list, el) {
           <h4>${item.name}</h4>
           <p>${item.desc}</p>
         </div>
-        <button class="btn"
-          onclick="event.stopPropagation(); smartClick('${item.url}')">
+        <button class="btn" onclick="event.stopPropagation(); smartClick('${item.url}')">
           DOWNLOAD
         </button>
       </div>
