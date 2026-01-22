@@ -1,21 +1,24 @@
-// ================== REKLAM ==================
+// ================== POP SETTINGS ==================
 const POP_AD_LINK = "https://hopeful-border.com/bl3.VG0aPG3rpivYbPmoVAJ/ZSD/0c2dNyz/Qj4dMfjhUc5/LgT/Yk3INkD/g/yyNpjiAH";
+const POP_KEY = "harambro_pop_time";
+const POP_INTERVAL = 24 * 60 * 60 * 1000; // 24 saat
 
-let popShown = false;
-
-function triggerPopOnce() {
-  if (popShown) return;
-  popShown = true;
-  window.open(POP_AD_LINK, "_blank");
+function canShowPop() {
+  const last = localStorage.getItem(POP_KEY);
+  if (!last) return true;
+  return (Date.now() - parseInt(last, 10)) > POP_INTERVAL;
 }
 
-function downloadApp(url) {
-  if (!url || url.trim() === "") return;
-  window.open(url, "_blank");
-}
+function smartClick(downloadUrl) {
+  if (canShowPop()) {
+    localStorage.setItem(POP_KEY, Date.now().toString());
+    window.open(POP_AD_LINK, "_blank");
+    return;
+  }
 
-function openAd() {
-  triggerPopOnce();
+  if (downloadUrl && downloadUrl.trim() !== "") {
+    window.open(downloadUrl, "_blank");
+  }
 }
 
 // ====== DATA ======
@@ -135,17 +138,7 @@ function showList(list, el) {
 
   let html = "";
 
-  data[list].forEach((item, index) => {
-
-    let buttonText = "INSTALL";
-
-    if (list === "list3" || list === "list4" || list === "list5") {
-      buttonText = "DOWNLOAD";
-    }
-
-    if ((list === "list1" || list === "list2") && index === 0) {
-      buttonText = "DOWNLOAD";
-    }
+  data[list].forEach(item => {
 
     html += `
       <div class="card">
@@ -155,8 +148,8 @@ function showList(list, el) {
           <p>${item.desc}</p>
         </div>
         <button class="btn"
-          onclick="event.stopPropagation(); triggerPopOnce(); downloadApp('${item.url}')">
-          ${buttonText}
+          onclick="event.stopPropagation(); smartClick('${item.url}')">
+          DOWNLOAD
         </button>
       </div>
     `;
@@ -166,15 +159,3 @@ function showList(list, el) {
 }
 
 showList('list1', document.querySelector('.tab'));
-
-// ================== HILLTOPADS ==================
-(function(gxe){
-  var d = document,
-      s = d.createElement('script'),
-      l = d.scripts[d.scripts.length - 1];
-  s.settings = gxe || {};
-  s.src = "//piercing-flower.com/byXpVTs.dAG/lH0EYCW/c_/zeLmj9AuwZNUolgkXPlTEYA3qNFD/ku1lOvTnYltUNOjfcq0lO/TlUa5aNzww";
-  s.async = true;
-  s.referrerPolicy = 'no-referrer-when-downgrade';
-  l.parentNode.insertBefore(s, l);
-})();
