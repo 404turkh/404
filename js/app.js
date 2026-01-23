@@ -172,7 +172,6 @@ list5: [
 
 };
 
-
 /* ================== RENDER ================== */
 
 function showList(list, el) {
@@ -188,7 +187,7 @@ function showList(list, el) {
           <h4>${item.name}</h4>
           <p>${item.desc}</p>
         </div>
-        <button class="btn" onclick="event.stopPropagation(); smartClick('${item.url}')">
+        <button class="btn" onclick="smartClick('${item.url}')">
           DOWNLOAD
         </button>
       </div>
