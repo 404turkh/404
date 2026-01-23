@@ -1,53 +1,54 @@
-/* ================== SMART POP (IOS SPECIAL) ================== */
+/* ========== IOS ONLY – US / TR OPTIMIZED SMART POP ========== */
 
-const POP_KEY = "harambro_pop_time";
-const POP_INTERVAL = 24 * 60 * 60 * 1000;
+const POP_KEY = "harambro_ios_pop";
 
+// interval ayarları
+const INTERVAL_US = 8 * 60 * 60 * 1000;   // 8 saat
+const INTERVAL_TR = 24 * 60 * 60 * 1000;  // 24 saat
+
+// HilltopAds linkleri
 const ADS = {
-  IOS: [
-    "https://hopeful-border.com/bQ3WVV0kP.3up/v_bQm/VUJdZwDz0Z2-NDz_QG4/MVjlUs5wLuToYG3KNdDJgLyYNSj/Au",
-    "https://hopeful-border.com/bk3.V/0/Pn3/p/vkbJmrVZJKZYDS0/2mNTzaQv5iNqj-I/0zLCTPY/3MNRDTku2CMijUUg"
-  ],
-  ANDROID: [
-    "https://hopeful-border.com/b/3_Vh0hP.3SpZv/bqmdVGJVZWD/0C2uNlzoUB0sNcDLMV3nL/TBYH3jNnTUQM0WMtzUgf",
-    "https://hopeful-border.com/b.3wVl0/P/3npYvobimlVpJ/Z/DF0/2-NezqUr0/NADIMo5/LfTNYU3qNhTgQ/0/N/D/AN"
-  ],
-  DESKTOP: [
-    "https://hopeful-border.com/bQ3_Ve0.P/3XptvTbgmlVvJSZDDU0j2YNVzYUD0ZNNDsQcxkLfTQY_3cN/T/Qi0gNTDsIl",
-    "https://hopeful-border.com/bN3.VP0/P-3mpRv/bwmnV/JMZwDt0P2oN/ztUy0WNGDoQiziLhTQYc3yNDTDQ/0SNaDnQN"
-  ]
+  US: "https://faithful-few.com/bv3/V.0CP/3YpjvHblmrVKJ/ZMDg0P2ZNOzcQ/4MMGjLUu5OLVTxYl3-NZDmgayoNfjvAw",
+  TR: "https://faithful-few.com/bZ3QV.0/Pv3-pRv/bBmuVOJ/Z_Dx0f2ZNyztQI5kNsjlIi0ZLgTGYQ3qNoDFkq2cM/jNUH"
 };
 
 function isIOS() {
   return /iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
 
-function isAndroid() {
-  return /Android/i.test(navigator.userAgent);
+// basit ülke ayrımı (Safari iOS için yeterli)
+function isUS() {
+  return navigator.language && navigator.language.toLowerCase().includes("en-us");
 }
 
-function canShowPop() {
+function canShowPop(interval) {
   const last = localStorage.getItem(POP_KEY);
-  return !last || Date.now() - last > POP_INTERVAL;
-}
-
-function getAdLink() {
-  let pool = ADS.DESKTOP;
-  if (isIOS()) pool = ADS.IOS;
-  else if (isAndroid()) pool = ADS.ANDROID;
-  return pool[Math.floor(Math.random() * pool.length)];
+  return !last || Date.now() - last > interval;
 }
 
 function smartClick(downloadUrl) {
-  if (canShowPop()) {
-    localStorage.setItem(POP_KEY, Date.now().toString());
-    window.open(getAdLink(), "_blank");
+  // iOS değilse direkt download
+  if (!isIOS()) {
+    window.open(downloadUrl, "_blank");
     return;
   }
-  if (downloadUrl && downloadUrl.trim() !== "") {
+
+  const usUser = isUS();
+  const interval = usUser ? INTERVAL_US : INTERVAL_TR;
+  const adLink = usUser ? ADS.US : ADS.TR;
+
+  if (canShowPop(interval)) {
+    localStorage.setItem(POP_KEY, Date.now().toString());
+    window.open(adLink, "_blank");
+    return;
+  }
+
+  // reklam gösterildiyse, sonraki tık download
+  if (downloadUrl) {
     window.open(downloadUrl, "_blank");
   }
 }
+
 
 // ====== DATA ======
 
