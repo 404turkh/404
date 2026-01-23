@@ -1,70 +1,3 @@
-/* ========== IOS ONLY – HILLTOP SAFE POP SYSTEM (US / DE / TR) ========== */
-
-const POP_KEY = "harambro_ios_pop";
-
-const INTERVAL_US = 8 * 60 * 60 * 1000;
-const INTERVAL_DE = 24 * 60 * 60 * 1000;
-const INTERVAL_TR = 24 * 60 * 60 * 1000;
-
-const ADS = {
-  US: "https://faithful-few.com/bv3/V.0CP/3YpjvHblmrVKJ/ZMDg0P2ZNOzcQ/4MMGjLUu5OLVTxYl3-NZDmgayoNfjvAw",
-  TR: "https://faithful-few.com/bZ3QV.0/Pv3-pRv/bBmuVOJ/Z_Dx0f2ZNyztQI5kNsjlIi0ZLgTGYQ3qNoDFkq2cM/jNUH",
-  DE: "https://faithful-few.com/bd3aVk0MP.3kppvzb/m_VfJWZADh0l2/N_zAUU0cNzD/Qtz/LgThYR3/NKTkQ/0YNSD-Qt"
-};
-
-function isIOS() {
-  return /iPhone|iPad|iPod/i.test(navigator.userAgent);
-}
-
-function getCountry() {
-  const lang = (navigator.language || "").toLowerCase();
-  if (lang.includes("de")) return "DE";
-  if (lang.includes("en")) return "US";
-  return "TR";
-}
-
-/* ===== HILLTOP SAFE CLICK ===== */
-function smartGate(el, downloadUrl) {
-
-  if (!isIOS()) {
-    el.href = downloadUrl;
-    return true;
-  }
-
-  const now = Date.now();
-  let last = 0;
-
-  try {
-    last = Number(localStorage.getItem(POP_KEY) || 0);
-  } catch (e) {}
-
-  const country = getCountry();
-
-  let interval = INTERVAL_TR;
-  let adLink = ADS.TR;
-
-  if (country === "US") {
-    interval = INTERVAL_US;
-    adLink = ADS.US;
-  } else if (country === "DE") {
-    interval = INTERVAL_DE;
-    adLink = ADS.DE;
-  }
-
-  if (now - last > interval) {
-    try {
-      localStorage.setItem(POP_KEY, now.toString());
-    } catch (e) {}
-
-    el.href = adLink; // 🔥 gerçek <a> click
-    return true;
-  }
-
-  el.href = downloadUrl;
-  return true;
-}
-
-
 // ====== DATA ======
 
 const data = {
@@ -103,11 +36,11 @@ list1: [
 {logo:"ngisk.png",name:"KSign GLOBAL V5",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/tGeKc0"},
 {logo:"ngisk.png",name:"KSign GLOBAL V6",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/Deq7RD"},
 {logo:"ngisk.png",name:"KSign GLOBAL V7",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/kcvpWe"}
+
 ],
 
 list2: [
 {logo:"tw.png",name:"esing",desc:"Certificate",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/ESignCert.zip"},
-
 {logo:"gnise.png",name:"ESign",desc:"Qingdao Rural Commercial Bank Co., Ltd",url:"https://api.khoindvn.eu.org/KXcveB"},
 {logo:"gnise.png",name:"ESign",desc:"Commission on Elections",url:"https://api.khoindvn.io.vn/jAbzrt"},
 {logo:"gnise.png",name:"ESign Com V1",desc:"Commission on Elections",url:"https://api.khoindvn.io.vn/RzkRFk"},
@@ -173,7 +106,7 @@ list5: [
 
 };
 
-/* ================== RENDER ================== */
+// ================== RENDER ==================
 
 function showList(list, el) {
   document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
@@ -188,10 +121,8 @@ function showList(list, el) {
           <h4>${item.name}</h4>
           <p>${item.desc}</p>
         </div>
-        <a class="btn"
-           href="${ADS.TR}"
-           onclick="return smartGate(this, '${item.url}')">
-           DOWNLOAD
+        <a class="btn" href="${item.url}">
+          DOWNLOAD
         </a>
       </div>
     `;
