@@ -1,51 +1,65 @@
-/* ========== IOS ONLY – US / TR OPTIMIZED SMART POP ========== */
+/* ========== IOS ONLY – SAFE POP SYSTEM (US / DE / TR) ========== */
 
 const POP_KEY = "harambro_ios_pop";
 
-// interval ayarları
 const INTERVAL_US = 8 * 60 * 60 * 1000;   // 8 saat
+const INTERVAL_DE = 24 * 60 * 60 * 1000;  // 24 saat
 const INTERVAL_TR = 24 * 60 * 60 * 1000;  // 24 saat
 
-// HilltopAds linkleri
+// Reklam linkleri
 const ADS = {
   US: "https://faithful-few.com/bv3/V.0CP/3YpjvHblmrVKJ/ZMDg0P2ZNOzcQ/4MMGjLUu5OLVTxYl3-NZDmgayoNfjvAw",
-  TR: "https://faithful-few.com/bZ3QV.0/Pv3-pRv/bBmuVOJ/Z_Dx0f2ZNyztQI5kNsjlIi0ZLgTGYQ3qNoDFkq2cM/jNUH"
+  TR: "https://faithful-few.com/bZ3QV.0/Pv3-pRv/bBmuVOJ/Z_Dx0f2ZNyztQI5kNsjlIi0ZLgTGYQ3qNoDFkq2cM/jNUH",
+  DE: "https://faithful-few.com/bd3aVk0MP.3kppvzb/m_VfJWZADh0l2/N_zAUU0cNzD/Qtz/LgThYR3/NKTkQ/0YNSD-Qt"
 };
 
 function isIOS() {
   return /iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
 
-// basit ülke ayrımı (Safari iOS için yeterli)
-function isUS() {
-  return navigator.language && navigator.language.toLowerCase().includes("en-us");
-}
+function getCountry() {
+  const lang = (navigator.language || "").toLowerCase();
 
-function canShowPop(interval) {
-  const last = localStorage.getItem(POP_KEY);
-  return !last || Date.now() - last > interval;
+  if (lang.includes("en")) return "US";
+  if (lang.includes("de")) return "DE";
+  if (lang.includes("tr")) return "TR";
+
+  return "TR"; // default
 }
 
 function smartClick(downloadUrl) {
+
   // iOS değilse direkt download
   if (!isIOS()) {
-    window.open(downloadUrl, "_blank");
+    if (downloadUrl) window.open(downloadUrl, "_blank");
     return;
   }
 
-  const usUser = isUS();
-  const interval = usUser ? INTERVAL_US : INTERVAL_TR;
-  const adLink = usUser ? ADS.US : ADS.TR;
+  const now = Date.now();
+  const last = Number(localStorage.getItem(POP_KEY) || 0);
+  const country = getCountry();
 
-  if (canShowPop(interval)) {
-    localStorage.setItem(POP_KEY, Date.now().toString());
-    window.open(adLink, "_blank");
+  let interval = INTERVAL_TR;
+  let adLink = ADS.TR;
+
+  if (country === "US") {
+    interval = INTERVAL_US;
+    adLink = ADS.US;
+  } else if (country === "DE") {
+    interval = INTERVAL_DE;
+    adLink = ADS.DE;
+  }
+
+  // 🔥 İLK TIK = REKLAM
+  if (now - last > interval) {
+    localStorage.setItem(POP_KEY, now.toString());
+    window.location.href = adLink; // iOS için en güvenlisi
     return;
   }
 
-  // reklam gösterildiyse, sonraki tık download
+  // 🔥 SONRAKİ TIK = DOWNLOAD
   if (downloadUrl) {
-    window.open(downloadUrl, "_blank");
+    window.location.href = downloadUrl;
   }
 }
 
