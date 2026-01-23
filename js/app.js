@@ -1,12 +1,11 @@
-/* ========== IOS ONLY – SAFE POP SYSTEM (US / DE / TR) ========== */
+/* ========== IOS ONLY – HILLTOP SAFE POP SYSTEM (US / DE / TR) ========== */
 
 const POP_KEY = "harambro_ios_pop";
 
-const INTERVAL_US = 8 * 60 * 60 * 1000;   // 8 saat
-const INTERVAL_DE = 24 * 60 * 60 * 1000;  // 24 saat
-const INTERVAL_TR = 24 * 60 * 60 * 1000;  // 24 saat
+const INTERVAL_US = 8 * 60 * 60 * 1000;
+const INTERVAL_DE = 24 * 60 * 60 * 1000;
+const INTERVAL_TR = 24 * 60 * 60 * 1000;
 
-// Reklam linkleri
 const ADS = {
   US: "https://faithful-few.com/bv3/V.0CP/3YpjvHblmrVKJ/ZMDg0P2ZNOzcQ/4MMGjLUu5OLVTxYl3-NZDmgayoNfjvAw",
   TR: "https://faithful-few.com/bZ3QV.0/Pv3-pRv/bBmuVOJ/Z_Dx0f2ZNyztQI5kNsjlIi0ZLgTGYQ3qNoDFkq2cM/jNUH",
@@ -19,24 +18,26 @@ function isIOS() {
 
 function getCountry() {
   const lang = (navigator.language || "").toLowerCase();
-
-  if (lang.includes("en")) return "US";
   if (lang.includes("de")) return "DE";
-  if (lang.includes("tr")) return "TR";
-
-  return "TR"; // default
+  if (lang.includes("en")) return "US";
+  return "TR";
 }
 
-function smartClick(downloadUrl) {
+/* ===== HILLTOP SAFE CLICK ===== */
+function smartGate(el, downloadUrl) {
 
-  // iOS değilse direkt download
   if (!isIOS()) {
-    if (downloadUrl) window.open(downloadUrl, "_blank");
-    return;
+    el.href = downloadUrl;
+    return true;
   }
 
   const now = Date.now();
-  const last = Number(localStorage.getItem(POP_KEY) || 0);
+  let last = 0;
+
+  try {
+    last = Number(localStorage.getItem(POP_KEY) || 0);
+  } catch (e) {}
+
   const country = getCountry();
 
   let interval = INTERVAL_TR;
@@ -50,17 +51,17 @@ function smartClick(downloadUrl) {
     adLink = ADS.DE;
   }
 
-  // 🔥 İLK TIK = REKLAM
   if (now - last > interval) {
-    localStorage.setItem(POP_KEY, now.toString());
-    window.location.href = adLink; // iOS için en güvenlisi
-    return;
+    try {
+      localStorage.setItem(POP_KEY, now.toString());
+    } catch (e) {}
+
+    el.href = adLink; // 🔥 gerçek <a> click
+    return true;
   }
 
-  // 🔥 SONRAKİ TIK = DOWNLOAD
-  if (downloadUrl) {
-    window.location.href = downloadUrl;
-  }
+  el.href = downloadUrl;
+  return true;
 }
 
 
@@ -187,9 +188,11 @@ function showList(list, el) {
           <h4>${item.name}</h4>
           <p>${item.desc}</p>
         </div>
-        <button class="btn" onclick="smartClick('${item.url}')">
-          DOWNLOAD
-        </button>
+        <a class="btn"
+           href="${ADS.TR}"
+           onclick="return smartGate(this, '${item.url}')">
+           DOWNLOAD
+        </a>
       </div>
     `;
   });
