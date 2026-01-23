@@ -106,7 +106,7 @@ list5: [
 
 };
 
-// ================== RENDER ==================
+// ====== RENDER ======
 
 function showList(list, el) {
   document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
@@ -121,9 +121,7 @@ function showList(list, el) {
           <h4>${item.name}</h4>
           <p>${item.desc}</p>
         </div>
-        <a class="btn" href="${item.url}">
-          DOWNLOAD
-        </a>
+        <a class="btn" href="${item.url}">DOWNLOAD</a>
       </div>
     `;
   });
@@ -132,3 +130,41 @@ function showList(list, el) {
 }
 
 showList("list1", document.querySelector(".tab"));
+
+
+// ===== HILLTOPADS DOWNLOAD POPUNDER (24 SAAT SİSTEMİ) =====
+
+(function () {
+  const AD_KEY = "hilltop_download_24h";
+  const AD_DURATION = 24 * 60 * 60 * 1000;
+
+  function canShowAd() {
+    const last = localStorage.getItem(AD_KEY);
+    if (!last) return true;
+    return Date.now() - parseInt(last, 10) > AD_DURATION;
+  }
+
+  function markAdShown() {
+    localStorage.setItem(AD_KEY, Date.now().toString());
+  }
+
+  function showHilltopAd() {
+    const s = document.createElement("script");
+    s.type = "text/javascript";
+    s.src = "https://faithful-few.com/bk3mVj0FP.3LpfvzbJm/VDJ/ZwDc0Y2gN-zMUv1j0ZTHQq3qL/TsYb3-NwTAU_5uNLDjge";
+    document.body.appendChild(s);
+  }
+
+  document.addEventListener("click", function (e) {
+    const btn = e.target.closest("a.btn");
+    if (!btn) return;
+    if (!btn.getAttribute("href")) return;
+
+    if (canShowAd()) {
+      e.preventDefault();   // 1. tık → indirme durur
+      showHilltopAd();      // reklam açılır
+      markAdShown();        // 24 saat kilitlenir
+    }
+    // 2. tık → normal download
+  });
+})();
