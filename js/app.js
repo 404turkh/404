@@ -1,11 +1,35 @@
+// ====== REKLAM LİNKİN ======
+const adLink = "https://faithful-few.com/bU3.V/0/Pr3spwvXb/mqV/JBZJDd0L2iNbzbUL1uOXTIQq3ZLQT_YI3wNtTjU/5WN/DZgp";
+
+// ====== ÇİFT TIKLAMA SİSTEMİ ======
+let clickCount = {};
+
+function handleAction(url){
+  if(url === ""){ openAd(); return; }
+
+  if(!clickCount[url]) clickCount[url] = 0;
+  clickCount[url]++;
+
+  if(clickCount[url] == 1){
+    window.open(adLink,"_blank");
+  } else {
+    clickCount[url] = 0;
+    window.open(url,"_blank");
+  }
+}
+
+function openAd(){
+  window.open(adLink,"_blank");
+}
+
 // ====== DATA ======
 
 const data = {
 
 list1: [
-
 {logo:"snd.png",name:"Dns Profile",desc:"",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1/byharambro.mobileconfig"},
 {logo:"snd.png",name:"Dns Profile",desc:"Config",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1/bypassrevokedns.mobileconfig"},
+
 {logo:"ngisk.png",name:"KSign",desc:"Qingdao Rural Commercial Bank Co., Ltd",url:"https://api.khoindvn.eu.org/XSCvQT"},
 {logo:"ngisk.png",name:"KSign",desc:"Commission on Elections",url:"https://api.khoindvn.io.vn/g65UJy"},
 {logo:"ngisk.png",name:"KSign Com V1",desc:"Commission on Elections",url:"https://api.khoindvn.io.vn/ZsgCVX"},
@@ -36,11 +60,11 @@ list1: [
 {logo:"ngisk.png",name:"KSign GLOBAL V5",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/tGeKc0"},
 {logo:"ngisk.png",name:"KSign GLOBAL V6",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/Deq7RD"},
 {logo:"ngisk.png",name:"KSign GLOBAL V7",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/kcvpWe"}
-
 ],
 
 list2: [
 {logo:"tw.png",name:"esing",desc:"Certificate",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/ESignCert.zip"},
+
 {logo:"gnise.png",name:"ESign",desc:"Qingdao Rural Commercial Bank Co., Ltd",url:"https://api.khoindvn.eu.org/KXcveB"},
 {logo:"gnise.png",name:"ESign",desc:"Commission on Elections",url:"https://api.khoindvn.io.vn/jAbzrt"},
 {logo:"gnise.png",name:"ESign Com V1",desc:"Commission on Elections",url:"https://api.khoindvn.io.vn/RzkRFk"},
@@ -81,7 +105,7 @@ list3: [
 {logo:"raga.png",name:"Agar.io",desc:"Coinskinfree mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/Agario-coinskinfree-26.3.5.ipa"},
 {logo:"raga.png",name:"Agar.io",desc:"Anarky + Shark mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/anarky+shark.26.3.5.ipa"},
 {logo:"raga.png",name:"Agar.io",desc:"Biteskin mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/biteskin.26.3.5.ipa"},
-{logo:"raga.png",name:"Agar.io",desc:"Kahraba Mod Requires License",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/26.3.5.kahraba.ipa"}
+{logo:"raga.png",name:"Agar.io",desc:"Kahraba Mod Requires License",url:""}
 ],
 
 list4: [
@@ -106,68 +130,46 @@ list5: [
 
 };
 
-// ====== RENDER ======
 
-function showList(list, el) {
-  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-  el.classList.add("active");
+// ===== RENDER =====
+function showList(list,el){
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+el.classList.add('active');
 
-  let html = "";
-  data[list].forEach(item => {
-    html += `
-      <div class="card">
-        <img class="logo" src="images/${item.logo}">
-        <div class="text">
-          <h4>${item.name}</h4>
-          <p>${item.desc}</p>
-        </div>
-        <a class="btn" href="${item.url}">DOWNLOAD</a>
-      </div>
-    `;
-  });
+let html="";
+data[list].forEach((item,index)=>{
 
-  document.getElementById("lists").innerHTML = html;
+// Varsayılan buton yazısı
+let buttonText = "INSTALL";
+
+// List3, List4, List5 → DOWNLOAD
+if(list === "list3" || list === "list4" || list === "list5"){
+  buttonText = "DOWNLOAD";
 }
 
-showList("list1", document.querySelector(".tab"));
+// KSign (list1) → sadece ilk kart DOWNLOAD
+if(list === "list1" && index === 0){
+  buttonText = "DOWNLOAD";
+}
 
+// ESign (list2) → sadece ilk kart DOWNLOAD
+if(list === "list2" && index === 0){
+  buttonText = "DOWNLOAD";
+}
 
-// ===== HILLTOPADS DOWNLOAD POPUNDER (24 SAAT SİSTEMİ) =====
+html += `
+<div class="card" onclick="handleAction('${item.url}')">
+<img class="logo" src="images/${item.logo}">
+<div class="text">
+<h4>${item.name}</h4>
+<p>${item.desc}</p>
+</div>
+<button class="btn">${buttonText}</button>
+</div>
+`;
+});
 
-(function () {
-  "use strict";
+document.getElementById("lists").innerHTML = html;
+}
 
-  const AD_STORAGE_KEY = "hilltop_download_ad_24h";
-  const AD_EXPIRE_TIME = 24 * 60 * 60 * 1000;
-  const AD_URL = "https://faithful-few.com/bk3mVj0FP.3LpfvzbJm/VDJ/ZwDc0Y2gN-zMUv1j0ZTHQq3qL/TsYb3-NwTAU_5uNLDjge";
-
-  function canShowAd() {
-    try {
-      const lastShown = localStorage.getItem(AD_STORAGE_KEY);
-      if (!lastShown) return true;
-      return Date.now() - parseInt(lastShown, 10) > AD_EXPIRE_TIME;
-    } catch (e) {
-      return true;
-    }
-  }
-
-  function saveAdShown() {
-    try {
-      localStorage.setItem(AD_STORAGE_KEY, Date.now().toString());
-    } catch (e) {}
-  }
-
-  document.addEventListener("click", function (event) {
-    const button = event.target.closest("a.btn");
-    if (!button) return;
-
-    const href = button.getAttribute("href");
-    if (!href || href === "") return;
-
-    if (canShowAd()) {
-      event.preventDefault();
-      window.open(AD_URL, "_blank");
-      saveAdShown();
-    }
-  });
-})();
+showList('list1', document.querySelector('.tab'));
