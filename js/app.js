@@ -173,25 +173,19 @@ function showList(list, el) {
   document.getElementById("lists").innerHTML = html;
 }
 
-// Bildirimi göster
-function showNotification() {
-  const notification = document.getElementById("notification");
-  notification.style.display = "block";
+// === AD POPUP SYSTEM ===
+
+// Popup aç
+function showAdPopup() {
+  document.getElementById("ad-notification").style.display = "flex";
 }
 
-// Bildirimi kapat
-function closeNotification() {
-  const notification = document.getElementById("notification");
-  notification.style.display = "none";
+// Popup kapat
+function closeAdPopup() {
+  document.getElementById("ad-notification").style.display = "none";
 }
 
-// Sayfa yüklendikten 10 saniye sonra bildirimi göster
-window.onload = function() {
-  setTimeout(showNotification, 10000); // 10 saniye sonra göster
-  const closeButton = document.getElementById("close-notification");
-  if (closeButton) {
-    closeButton.addEventListener("click", closeNotification); // Kapatma butonuna tıklanması ile bildirimi kapat
-  }
-};
-
-showList('list1', document.querySelector('.tab'));
+// Sayfa açıldıktan 10 saniye sonra göster
+window.addEventListener("load", () => {
+  setTimeout(showAdPopup, 10000);
+});
