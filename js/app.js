@@ -172,20 +172,3 @@ function showList(list, el) {
 
   document.getElementById("lists").innerHTML = html;
 }
-
-// === AD POPUP SYSTEM ===
-
-// Popup aç
-function showAdPopup() {
-  document.getElementById("ad-notification").style.display = "flex";
-}
-
-// Popup kapat
-function closeAdPopup() {
-  document.getElementById("ad-notification").style.display = "none";
-}
-
-// Sayfa açıldıktan 10 saniye sonra göster
-window.addEventListener("load", () => {
-  setTimeout(showAdPopup, 10000);
-});
