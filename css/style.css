@@ -118,6 +118,44 @@ color:gray;
 font-size:14px;
 }
 
+#adModal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  position: relative;
+}
+
+#ad-container {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 1;
+  background-color: #f1f1f1;
+}
+
+.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
 /* Responsive */
 @media(max-width:600px){
 .nav-center{transform:scale(0.9);}
