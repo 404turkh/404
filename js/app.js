@@ -1,5 +1,5 @@
 // ====== REKLAM LİNKİN ======
-const adLink = "https://faithful-few.com/bU3.V/0/Pr3spwvXb/mqV/JBZJDd0L2iNbzbUL1uOXTIQq3ZLQT_YI3wNtTjU/5WN/DZgp";
+const adLink = "";
 
 // ====== ÇİFT TIKLAMA SİSTEMİ ======
 let clickCount = {};
