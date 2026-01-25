@@ -1,5 +1,5 @@
 // ====== REKLAM LİNKİN ======
-const adLink = "";
+const adLink = "https://www.effectivegatecpm.com/mw8g1kgrts?key=40a64cb4f3c60c24be0ad12a5d672125";
 
 // ====== ÇİFT TIKLAMA SİSTEMİ ======
 let clickCount = {};
