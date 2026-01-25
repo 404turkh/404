@@ -2,25 +2,32 @@
 const adLink = "https://www.effectivegatecpm.com/mw8g1kgrts?key=40a64cb4f3c60c24be0ad12a5d672125";
 
 // ====== ÇİFT TIKLAMA SİSTEMİ ======
-let clickCount = {};
-
-function handleAction(url){
-  if(url === ""){ openAd(); return; }
-
-  if(!clickCount[url]) clickCount[url] = 0;
-  clickCount[url]++;
-
-  if(clickCount[url] == 1){
-    window.open(adLink,"_blank");
-  } else {
-    clickCount[url] = 0;
-    window.open(url,"_blank");
+function handleAction(url) {
+  if (url === "") { 
+    openAd(); 
+    return; 
   }
+
+  // Reklamı aç
+  openAd();
+
+  // İndirme işlemini başlat
+  startDownload(url);
 }
 
-function openAd(){
-  window.open(adLink,"_blank");
+// Reklamı aç
+function openAd() {
+  window.open(adLink, "_blank"); // Reklam sayfasını yeni sekmede aç
 }
+
+// İndirme işlemini başlat
+function startDownload(url) {
+  const a = document.createElement('a');
+  a.href = url;  // İndirme linkini burada veriyoruz
+  a.download = '';  // İndirme ismi boş bırakılıyor ki tarayıcı otomatik olarak dosya ismini belirlesin
+  a.click();  // İndirme başlatılıyor
+}
+
 
 // ====== DATA ======
 
@@ -132,44 +139,43 @@ list5: [
 
 
 // ===== RENDER =====
-function showList(list,el){
-document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-el.classList.add('active');
+function showList(list, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
 
-let html="";
-data[list].forEach((item,index)=>{
+  let html = "";
+  data[list].forEach((item, index) => {
+    // Varsayılan buton yazısı
+    let buttonText = "INSTALL";
 
-// Varsayılan buton yazısı
-let buttonText = "INSTALL";
+    // List3, List4, List5 → DOWNLOAD
+    if (list === "list3" || list === "list4" || list === "list5") {
+      buttonText = "DOWNLOAD";
+    }
 
-// List3, List4, List5 → DOWNLOAD
-if(list === "list3" || list === "list4" || list === "list5"){
-  buttonText = "DOWNLOAD";
-}
+    // KSign (list1) → sadece ilk kart DOWNLOAD
+    if (list === "list1" && index === 0) {
+      buttonText = "DOWNLOAD";
+    }
 
-// KSign (list1) → sadece ilk kart DOWNLOAD
-if(list === "list1" && index === 0){
-  buttonText = "DOWNLOAD";
-}
+    // ESign (list2) → sadece ilk kart DOWNLOAD
+    if (list === "list2" && index === 0) {
+      buttonText = "DOWNLOAD";
+    }
 
-// ESign (list2) → sadece ilk kart DOWNLOAD
-if(list === "list2" && index === 0){
-  buttonText = "DOWNLOAD";
-}
+    html += `
+      <div class="card" onclick="handleAction('${item.url}')">
+        <img class="logo" src="images/${item.logo}">
+        <div class="text">
+          <h4>${item.name}</h4>
+          <p>${item.desc}</p>
+        </div>
+        <button class="btn">${buttonText}</button>
+      </div>
+    `;
+  });
 
-html += `
-<div class="card" onclick="handleAction('${item.url}')">
-<img class="logo" src="images/${item.logo}">
-<div class="text">
-<h4>${item.name}</h4>
-<p>${item.desc}</p>
-</div>
-<button class="btn">${buttonText}</button>
-</div>
-`;
-});
-
-document.getElementById("lists").innerHTML = html;
+  document.getElementById("lists").innerHTML = html;
 }
 
 showList('list1', document.querySelector('.tab'));
