@@ -118,90 +118,9 @@ color:gray;
 font-size:14px;
 }
 
-#adModal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-content {
-  background: #fff;
-  padding: 15px;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 600px;
-  position: relative;
-}
-
-#ad-container {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 1;
-  background-color: #f1f1f1;
-}
-
-.close-btn {
-  position: absolute;
-  top: 5px;
-  right: 10px;
-  cursor: pointer;
-  font-size: 18px;
-}
-
 /* Responsive */
 @media(max-width:600px){
 .nav-center{transform:scale(0.9);}
 .card{margin:10px;}
 .logo{width:52px;height:52px;}
 }
-
-/* === AD NOTIFICATION POPUP === */
-.ad-popup {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.ad-popup-box {
-  background: #ffffff;
-  width: 320px;
-  max-width: 90%;
-  border-radius: 14px;
-  padding: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  animation: popScale 0.3s ease;
-}
-
-.ad-popup-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
-.ad-popup-header button {
-  border: none;
-  background: none;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-@keyframes popScale {
-  from {transform: scale(0.8); opacity:0;}
-  to {transform: scale(1); opacity:1;}
-}
-
