@@ -179,3 +179,20 @@ function showList(list, el) {
 }
 
 showList('list1', document.querySelector('.tab'));
+
+// Bildirimi göster
+function showNotification() {
+  const notification = document.getElementById("notification");
+  notification.style.display = "block";
+}
+
+// Bildirimi kapat
+function closeNotification() {
+  const notification = document.getElementById("notification");
+  notification.style.display = "none";
+}
+
+// Sayfa yüklendikten 10 saniye sonra bildirimi göster
+window.onload = function() {
+  setTimeout(showNotification, 10000); // 10 saniye sonra göster
+};
