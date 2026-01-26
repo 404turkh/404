@@ -179,6 +179,3 @@ function showList(list, el) {
   });
 
   document.getElementById("lists").innerHTML = html;
-}
-
-showList('list1', document.querySelector('.tab'));
