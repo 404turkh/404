@@ -13,6 +13,7 @@ function handleAction(url) {
 
   // İndirme işlemini başlat
   startDownload(url);
+  startINSTALL(url);
 }
 
 // Reklamı aç
