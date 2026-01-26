@@ -2,36 +2,47 @@
 const adLink = "https://www.effectivegatecpm.com/mw8g1kgrts?key=40a64cb4f3c60c24be0ad12a5d672125";
 
 // ====== ÇİFT TIKLAMA SİSTEMİ ======
+const AD_INTERVAL = 60 * 60 * 1000; // 1 saat
+
 function handleAction(url) {
-  if (!url) {
-    console.error("Invalid URL!");
+  if (!url) return;
+
+  const lastAdTime = localStorage.getItem("lastAdTime");
+  const now = Date.now();
+
+  if (!lastAdTime || now - lastAdTime > AD_INTERVAL) {
+    // Süre dolmuş → reklam aç
+    window.open(adLink, "_blank");
+
+    // Reklam zamanı kaydet
+    localStorage.setItem("lastAdTime", now);
+
+    // İndirme için ikinci tık beklenecek
+    localStorage.setItem("pendingUrl", url);
     return;
   }
 
-  openAd();
+  // Süre dolmamış → direkt indirme
   startDownload(url);
 }
 
-function openAd() {
-  if (!adLink) {
-    console.error("Ad link not found!");
-    return;
+// Sayfa yenilense bile ikinci tık çalışsın diye
+document.addEventListener("click", function() {
+  const pendingUrl = localStorage.getItem("pendingUrl");
+  if (pendingUrl) {
+    startDownload(pendingUrl);
+    localStorage.removeItem("pendingUrl");
   }
-  window.open(adLink, "_blank");
-}
+});
 
 function startDownload(url) {
-  if (!url) {
-    console.error("Invalid download link!");
-    return;
-  }
-
-  const a = document.createElement('a');
+  const a = document.createElement("a");
   a.href = url;
-  a.download = '';
+  a.download = "";
+  document.body.appendChild(a);
   a.click();
+  document.body.removeChild(a);
 }
-
 
 
 
