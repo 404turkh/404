@@ -3,30 +3,43 @@ const adLink = "https://www.effectivegatecpm.com/mw8g1kgrts?key=40a64cb4f3c60c24
 
 // ====== ÇİFT TIKLAMA SİSTEMİ ======
 function handleAction(url) {
+  if (!url) {
+    console.error("Invalid URL!");
+    return;
+  }
+
   if (url === "") { 
-    openAd(); 
+    openAd();
     return; 
   }
 
-  // Reklamı aç
   openAd();
 
-  // İndirme işlemini başlat
-  startDownload(url);
+  setTimeout(() => {
+    startDownload(url);
+  }, 1000);
 }
 
-// Reklamı aç
 function openAd() {
-  window.open(adLink, "_blank"); // Reklam sayfasını yeni sekmede aç
+  if (!adLink) {
+    console.error("Ad link not found!");
+    return;
+  }
+  window.open(adLink, "_blank");
 }
 
-// İndirme işlemini başlat
 function startDownload(url) {
+  if (!url) {
+    console.error("Invalid download link!");
+    return;
+  }
+  
   const a = document.createElement('a');
-  a.href = url;  // İndirme linkini burada veriyoruz
-  a.download = '';  // İndirme ismi boş bırakılıyor ki tarayıcı otomatik olarak dosya ismini belirlesin
-  a.click();  // İndirme başlatılıyor
+  a.href = url;
+  a.download = '';
+  a.click();
 }
+
 
 
 // ====== DATA ======
