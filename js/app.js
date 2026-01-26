@@ -13,7 +13,6 @@ function handleAction(url) {
 
   // İndirme işlemini başlat
   startDownload(url);
-  startINSTALL(url);
 }
 
 // Reklamı aç
@@ -28,8 +27,6 @@ function startDownload(url) {
   a.download = '';  // İndirme ismi boş bırakılıyor ki tarayıcı otomatik olarak dosya ismini belirlesin
   a.click();  // İndirme başlatılıyor
 }
-
-
 
 
 // ====== DATA ======
@@ -179,7 +176,6 @@ function showList(list, el) {
   });
 
   document.getElementById("lists").innerHTML = html;
-  
 }
 
 showList('list1', document.querySelector('.tab'));
