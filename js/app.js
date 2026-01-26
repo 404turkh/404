@@ -8,16 +8,8 @@ function handleAction(url) {
     return;
   }
 
-  if (url === "") { 
-    openAd();
-    return; 
-  }
-
   openAd();
-
-  setTimeout(() => {
-    startDownload(url);
-  }, 1000);
+  startDownload(url);
 }
 
 function openAd() {
@@ -33,12 +25,13 @@ function startDownload(url) {
     console.error("Invalid download link!");
     return;
   }
-  
+
   const a = document.createElement('a');
   a.href = url;
   a.download = '';
   a.click();
 }
+
 
 
 
