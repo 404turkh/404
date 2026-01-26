@@ -29,6 +29,8 @@ function startDownload(url) {
 }
 
 
+
+
 // ====== DATA ======
 
 const data = {
@@ -138,7 +140,7 @@ list5: [
 };
 
 
-// ====== RENDER =====
+// ===== RENDER =====
 function showList(list, el) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
@@ -158,6 +160,11 @@ function showList(list, el) {
       buttonText = "DOWNLOAD";
     }
 
+    // ESign (list2) → sadece ilk kart DOWNLOAD
+    if (list === "list2" && index === 0) {
+      buttonText = "DOWNLOAD";
+    }
+
     html += `
       <div class="card" onclick="handleAction('${item.url}')">
         <img class="logo" src="images/${item.logo}">
@@ -172,3 +179,5 @@ function showList(list, el) {
 
   document.getElementById("lists").innerHTML = html;
 }
+
+showList('list1', document.querySelector('.tab'));
