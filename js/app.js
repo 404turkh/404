@@ -7,33 +7,24 @@ const AD_INTERVAL = 60 * 60 * 1000; // 1 saat
 function handleAction(url) {
   if (!url) return;
 
-  const lastAdTime = localStorage.getItem("lastAdTime");
   const now = Date.now();
+  const lastAdTime = localStorage.getItem("lastAdTime");
 
-  if (!lastAdTime || now - lastAdTime > AD_INTERVAL) {
-    // Süre dolmuş → reklam aç
+  // Eğer hiç reklam gösterilmemişse veya 1 saat geçmişse
+  if (!lastAdTime || (now - lastAdTime) > AD_INTERVAL) {
+    // Reklam aç
     window.open(adLink, "_blank");
 
     // Reklam zamanı kaydet
     localStorage.setItem("lastAdTime", now);
 
-    // İndirme için ikinci tık beklenecek
-    localStorage.setItem("pendingUrl", url);
+    // Bu tıkta indirme yapma
     return;
   }
 
-  // Süre dolmamış → direkt indirme
+  // 1 saat dolmamışsa → direkt indir
   startDownload(url);
 }
-
-// Sayfa yenilense bile ikinci tık çalışsın diye
-document.addEventListener("click", function() {
-  const pendingUrl = localStorage.getItem("pendingUrl");
-  if (pendingUrl) {
-    startDownload(pendingUrl);
-    localStorage.removeItem("pendingUrl");
-  }
-});
 
 function startDownload(url) {
   const a = document.createElement("a");
@@ -43,6 +34,7 @@ function startDownload(url) {
   a.click();
   document.body.removeChild(a);
 }
+
 
 
 
