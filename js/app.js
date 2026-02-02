@@ -141,7 +141,7 @@ list5: [
 {logo:"tk.png",name:"Tiktok",desc:"ACTikTok Tweak 41.0.0",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/TikTok.ipa"},
 {logo:"fl.png",name:"Filza",desc:"File Manager for iOS (TrollStore only)",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/Filza.ipa"},
 {logo:"dp.png",name:"Dopamine",desc:"Jailbreak for iOS 15–16.6.1 (TrollStore only)",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/Dopamine.ipa"},
-{logo:"ngisk.png",name:"KSign",desc:"Currently under maintenance",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/Ksign.ipa"},
+{logo:"ngisk.png",name:"KSign",desc:"Sign and install",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/Ksign.ipa"},
 {logo:"gnise.png",name:"ESign",desc:"Sign and install third-party IPAs 5.0.2",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/ESign.ipa"},
 {logo:"sc.png",name:"Scarlet",desc:"Sideload apps without PC 1.0",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/Scarlet.ipa"}
 ]
