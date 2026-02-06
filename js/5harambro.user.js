@@ -1256,3 +1256,94 @@
         }, 100);
     }
 })();
+/* ================================
+   STACK + SPLIT FOLLOW MODULE
+   ================================ */
+
+(function () {
+
+    let stackMode = false;
+    let splitDistance = 380;
+    let splitCooldown = 1200;
+    let lastSplit = 0;
+
+    /* === UI BUTTON === */
+    const btn = document.createElement("button");
+    btn.textContent = "STACK: OFF";
+    Object.assign(btn.style, {
+        position: "fixed",
+        right: "20px",
+        top: "120px",
+        zIndex: 9999,
+        padding: "8px",
+        background: "#111",
+        color: "#0f0",
+        border: "1px solid #0f0",
+        cursor: "pointer"
+    });
+
+    btn.onclick = () => {
+        stackMode = !stackMode;
+        btn.textContent = stackMode ? "STACK: ON" : "STACK: OFF";
+    };
+
+    document.body.appendChild(btn);
+
+    /* === DANGER CHECK === */
+    function getDanger(bot, avg) {
+        for (const id in bot.playerCells) {
+            const c = bot.playerCells[id];
+            if (!c || c.isVirus || c.isFriend) continue;
+            if (c.size <= avg.size * 1.15) continue;
+
+            const d = Math.hypot(c.x - avg.x, c.y - avg.y);
+            if (d < c.size * 2) return c;
+        }
+        return null;
+    }
+
+    /* === MAIN HOOK === */
+    const _move = Bot.prototype.move;
+    Bot.prototype.move = function () {
+
+        if (!stackMode || !this.isAlive) {
+            return _move.apply(this, arguments);
+        }
+
+        const avg = this.getAverageCell();
+        if (!avg) return _move.apply(this, arguments);
+
+        const danger = getDanger(this, avg);
+
+        /* === FLEE === */
+        if (danger) {
+            const ang = Math.atan2(avg.y - danger.y, avg.x - danger.x);
+            this.moveTo(
+                avg.x + Math.cos(ang) * 900,
+                avg.y + Math.sin(ang) * 900,
+                this.decryptionKey
+            );
+            return;
+        }
+
+        /* === FOLLOW PLAYER === */
+        const px = this.config.cords.x + this.offsetX;
+        const py = this.config.cords.y + this.offsetY;
+
+        const dist = Math.hypot(px - avg.x, py - avg.y);
+
+        this.moveTo(px, py, this.decryptionKey);
+
+        /* === SPLIT INTO PLAYER === */
+        if (
+            dist < splitDistance &&
+            avg.size > 40 &&
+            Date.now() - lastSplit > splitCooldown
+        ) {
+            this.split();
+            lastSplit = Date.now();
+        }
+    };
+
+})();
+
