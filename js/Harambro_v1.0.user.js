@@ -1,23 +1,4 @@
 // ==UserScript==
-// @name         Harambro Script
-// @version      v1.0 Harambro
-// @description  Custom script developed by Harambro
-// @author       Harambro
-// ==/UserScript==
-
-/*
- _   _                           _                
-| | | |                         | |               
-| |_| | __ _ _ __ __ _ _ __ ___ | |__   ___  _ __  
-|  _  |/ _` | '__/ _` | '_ ` _ \| '_ \ / _ \| '_ \ 
-| | | | (_| | | | (_| | | | | | | |_) | (_) | | | |
-\_| |_/\__,_|_|  \__,_|_| |_| |_|_.__/ \___/|_| |_|
-
-Developed by Harambro
-Version: v1.0 Harambro
-*/
-
-// ==UserScript==
 // @name         @5harambro
 // @version      1
 // @description  Bots for Agar.io - Working on Delta extension
