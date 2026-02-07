@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         @5harambro
 // @version      1
-// @description  Bots for Agar.io - Working on Delta extension
+// @description  Bots for Agar.io - Working on HaramBro extension
 // @icon         https://raw.githubusercontent.com/404turkh/404/main/icon.png
 // @match        *://agar.io/*
 // @run-at       document-start
@@ -151,7 +151,7 @@
             const savedName = localStorage.getItem("scarz-bot-name");
             this.name = nameInput ? (nameInput.value.trim() || savedName || "@5harambro") : (savedName || "@5harambro");
             if (!nameInput && !savedName) {
-                localStorage.setItem("scarz-bot-name", "@5harambro");
+                localStorage.setItem("scarz-bot-name", "5harambro");
             }
             this.connect();
         }
