@@ -1264,10 +1264,10 @@
         fixedMode = !fixedMode;
 
         const btn = [...document.querySelectorAll(".small-button")]
-            .find(b => b.textContent.includes("Sabit"));
+            .find(b => b.textContent.includes("`Auto Console"));
 
         if (btn) {
-            btn.textContent = `ð Sabit ${fixedMode ? 'ON' : 'OFF'}`;
+            btn.textContent = ` Auto Console ${fixedMode ? 'ON' : 'OFF'}`;
         }
 
         if (fixedMode) startFixedPosition();
