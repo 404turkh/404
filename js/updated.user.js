@@ -2,7 +2,7 @@
 // @name         @5harambro
 // @version      1
 // @description  Bots for Agar.io - Working on Delta extension
-// @icon         data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QL+RXhpZgAATU0AKgAAAAgABwESAAMAAAA...AIAAAAUAAAAeodpAAQAAAABAAAAjgAAAAAAAABIAAAAAQAAAEgAAAABUGljc2Fy
+// @icon         https://raw.githubusercontent.com/404turkh/404/main/icon.png
 // @match        *://agar.io/*
 // @run-at       document-start
 // @grant        none
