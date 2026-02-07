@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         @5harambro
-// @version      1
+// @version      1.0.2
 // @description  Bots for Agar.io - Working on Delta extension
 // @icon         https://raw.githubusercontent.com/404turkh/404/main/icon.png
 // @match        *://agar.io/*
