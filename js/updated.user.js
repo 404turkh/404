@@ -149,9 +149,9 @@
             this.targetY = null;
             const nameInput = document.querySelector(".scarz-nick-input");
             const savedName = localStorage.getItem("scarz-bot-name");
-            this.name = nameInput ? (nameInput.value.trim() || savedName || "@5harambro") : (savedName || "@5harambro");
+            this.name = nameInput ? (nameInput.value.trim() || savedName || "5harambro") : (savedName || "5harambro");
             if (!nameInput && !savedName) {
-                localStorage.setItem("scarz-bot-name", "5harambro");
+                localStorage.setItem("404Gokturk-bot-name", "5harambro");
             }
             this.connect();
         }
