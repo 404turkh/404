@@ -149,9 +149,9 @@
             this.targetY = null;
             const nameInput = document.querySelector(".harambro-nick-input");
             const savedName = localStorage.getItem("harambro-bot-name");
-            this.name = nameInput ? (nameInput.value.trim() || savedName || "@5harambro") : (savedName || "@5harambro");
+            this.name = nameInput ? (nameInput.value.trim() || savedName || "5harambro") : (savedName || "5harambro");
             if (!nameInput && !savedName) {
-                localStorage.setItem("harambro-bot-name", "@5harambro");
+                localStorage.setItem("harambro-bot-name", "5harambro");
             }
             this.connect();
         }
