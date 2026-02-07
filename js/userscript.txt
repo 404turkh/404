@@ -1,0 +1,572 @@
+// ==UserScript==
+// @name         AvBots
+// @version      1.2
+// @description  Bots Agario WORKING ON DELTA 2025
+// @author       Null and kv0
+// @match        https://agar.io/*
+// @grant        none
+// ==/UserScript==
+(function() {
+    'use strict';
+
+    const BotServer = 'ws://127.0.0.1:9090';
+    const scriptKey = "key2";
+    const scriptVersion = 3;
+
+    window.botClient = {
+        zoomValue: 0,
+        ws: null,
+        mousePosition: { x: 0, y: 0, oX: 0, oY: 0 },
+        protocolVersion: 0,
+        clientVersion: 0,
+        decryptionKey: 0,
+        settings: { aiMode: false, running: false, vshield: false }
+    };
+
+    class BotProtocol {
+        constructor() {}
+
+        overWrite() {
+            WebSocket.prototype._send = WebSocket.prototype.send;
+            WebSocket.prototype.send = function(buffer) {
+                this._send(buffer);
+                if (this.url.includes(BotServer)) return;
+
+                window.botClient.server = this.url;
+                let msg = new DataView(new Uint8Array(arguments[0]).buffer);
+
+                switch (msg.getUint8(0)) {
+                    case 254:
+                        if (window.botClient.protocolVersion) return;
+                        window.botClient.protocolVersion = msg.getUint32(1, true);
+                        break;
+                    case 255:
+                        if (window.botClient.clientVersion) return;
+                        window.botClient.clientVersion = msg.getUint32(1, true);
+                        break;
+                }
+            };
+        }
+    }
+
+    window.botProtocol = new BotProtocol();
+    window.botProtocol.overWrite();
+
+    function updateUIElement(id, status, activeClass = true) {
+        const element = document.getElementById(id);
+        if (element) {
+            if (typeof status === 'boolean') {
+                element.textContent = status ? 'AI: ON' : 'AI :OFF';
+                if (activeClass) {
+                    element.classList.toggle('active', status);
+                }
+            } else {
+                element.textContent = status;
+            }
+        }
+    }
+
+    function updateUIStatus(status, state) {
+        updateUIElement("status", status, false);
+        const statusLight = document.getElementById("status-light");
+        if (statusLight) {
+            statusLight.className = 'status-indicator status-' + state;
+        }
+    }
+
+    function updateStartButton(running) {
+        const button = document.getElementById("startBotsButton");
+        if (button) {
+            button.textContent = running ? "Stop Bots" : "Start Bots";
+            button.classList.toggle('active', running);
+            button.disabled = false;
+            button.style.opacity = "1";
+        }
+    }
+
+    function handleCommand(command) {
+        if (!window.botClient.ws) return;
+
+        switch (command) {
+            case 'split':
+                window.botClient.ws.send(JSON.stringify({ type: 'split' }));
+                break;
+            case 'eject':
+                window.botClient.ws.send(JSON.stringify({ type: 'eject' }));
+                break;
+            case 'aiMode':
+                window.botClient.settings.aiMode = !window.botClient.settings.aiMode;
+                window.botClient.ws.send(JSON.stringify({ type: 'aiMode' }));
+                updateUIElement("aiModeButton", window.botClient.settings.aiMode);
+                break;
+            case 'toggle':
+                window.botClient.settings.running ? window.stop() : window.start();
+                break;
+            case 'vshield':
+                toggleVShield();
+                break;
+        }
+    }
+
+function initWebSocket() {
+    const updateInterval = setInterval(() => {
+        if (window.botClient.ws && window.botClient.ws.readyState === WebSocket.OPEN) {
+            window.botClient.ws.send(JSON.stringify({
+                type: 'move',
+                x: window.botClient.mousePosition.x,
+                y: window.botClient.mousePosition.y
+            }));
+        }
+
+        if (window.app) {
+            if (typeof window.app.mouse?.x === "number" && typeof window.app.mouse?.y === "number") {
+                window.botClient.mousePosition.x = window.app.mouse.x;
+                window.botClient.mousePosition.y = window.app.mouse.y;
+            } else if (typeof window.app.stage?.mouseWorldX === "number" && typeof window.app.stage?.mouseWorldY === "number") {
+                window.botClient.mousePosition.x = window.app.stage.mouseWorldX;
+                window.botClient.mousePosition.y = window.app.stage.mouseWorldY;
+            }
+        }
+    }, 25);
+
+    window.addEventListener("mousemove", event => {
+        window.clientX = event.clientX;
+        window.clientY = event.clientY;
+    });
+
+    connectWebSocket();
+}
+
+
+    function connectWebSocket() {
+      let reconnectInterval = 2000;
+        window.botClient.ws = new WebSocket(BotServer);
+
+        window.botClient.ws.onopen = () => {
+            console.log("Conexión establecida con el servidor.");
+            updateUIStatus('Connected', 'running');
+            initializeSettings();
+        };
+
+        window.botClient.ws.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+
+            switch (message.type) {
+                case 'started':
+                    window.botClient.settings.running = true;
+                    updateUIStatus('Started', 'running');
+                    updateStartButton(true);
+                    break;
+
+                case 'stopped':
+                    window.botClient.settings.running = false;
+                    updateUIStatus('Stopped', 'stopped');
+                    updateStartButton(false);
+                    break;
+
+                case 'botCount':
+                    updateUIElement("minionCount", message.connected, false);
+                    updateUIElement("minionSpawned", message.alive, false);
+                    break;
+
+                case 'error':
+                    console.error("Server error:", message.message);
+                    updateStartButton(false);
+                    break;
+            }
+        };
+        window.botClient.ws.onclose = () => {
+            updateUIStatus('Offline', 'offline');
+            console.log('WebSocket cerrado. Intentando reconectar...');
+            setTimeout(connectWebSocket, reconnectInterval);
+        };
+
+        window.botClient.ws.onerror = (error) => {
+            console.error('Error en el WebSocket:', error);
+            window.botClient.ws.close();
+        };
+    }
+
+    window.start = () => {
+        if (!window.botClient.ws) return;
+        window.botClient.ws.send(JSON.stringify({
+            type: 'start',
+            config: {
+                ip: window.botClient.server,
+                protocolVersion: window.botClient.protocolVersion,
+                clientVersion: window.botClient.clientVersion,
+                scriptKey: scriptKey,
+                scriptVersion: scriptVersion
+            }
+        }));
+    };
+
+    window.stop = () => {
+        if (!window.botClient.ws) return;
+        window.botClient.ws.send(JSON.stringify({ type: 'stop' }));
+    };
+
+    function toggleVShield() {
+        if (!window.botClient.ws) return;
+        window.botClient.settings.vshield = !window.botClient.settings.vshield;
+        const button = document.getElementById("vShieldButton");
+        button.textContent = `vShield: ${window.botClient.settings.vshield ? 'ON' : 'OFF'}`;
+        button.classList.toggle('active', window.botClient.settings.vshield);
+        window.botClient.ws.send(JSON.stringify({ type: 'vshield' }));
+    }
+
+    function createUI() {
+        // Panel de control del bot
+        const container = document.createElement("div");
+        container.id = "bots-container2";
+        container.style.cssText = `
+            box-shadow: 0px 0px 20px black;
+            z-index: 9999999;
+            background-color: rgba(0, 0, 0, 0.8);
+            width: 183px;
+            top: 120px;
+            left: 10px;
+            position: absolute;
+            text-align: center;
+            font-family: Ubuntu, sans-serif;
+            border: 2px solid #e00f00;
+            border-radius: 5px;
+            padding: 10px;
+        `;
+
+        container.innerHTML = `
+        <style>
+            .bot-button {
+                background-color: #0c31d4;
+                color: white;
+                border: none;
+                padding: 5px 15px;
+                margin: 5px;
+                cursor: pointer;
+                border-radius: 3px;
+                font-family: Ubuntu, sans-serif;
+                transition: all 0.3s;
+            }
+            .bot-button:hover {
+                opacity: 0.9;
+            }
+            .bot-button.active {
+                background-color: #e00f00;
+            }
+            .bot-stat {
+                color: #ffffff;
+                margin: 5px 0;
+                font-size: 14px;
+            }
+            .status-indicator {
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                margin-right: 5px;
+            }
+            .status-offline { background-color: #e00f00; }
+            .status-running { background-color: #00ff00; }
+            .status-stopped { background-color: #ff9900; }
+            .settings-modal {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: rgba(0, 0, 0, 0.95);
+                padding: 20px;
+                border: 2px solid #e00f00;
+                border-radius: 5px;
+                z-index: 999999;
+                width: 300px;
+                color: white;
+            }
+            .settings-label {
+                display: block;
+                margin: 10px 0 5px;
+                color: white;
+                font-family: Ubuntu, sans-serif;
+                font-size: 14px;
+            }
+            .settings-input {
+                width: 100%;
+                padding: 8px;
+                margin-bottom: 10px;
+                background-color: #333;
+                border: 1px solid #666;
+                color: white;
+                border-radius: 3px;
+                font-family: Ubuntu, sans-serif;
+            }
+            .settings-input:focus {
+                outline: none;
+                border-color: #0c31d4;
+            }
+            .modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.7);
+                z-index: 999998;
+            }
+        </style>
+        <div style="margin-bottom: 10px;">
+            <span class="status-indicator" id="status-light"></span>
+            <span style="color: #ffffff; font-size: 18px;">Status: <span id="status">Offline</span></span>
+        </div>
+        <div class="bot-stat">
+            Connected: <span id="minionCount">0</span>
+        </div>
+        <div class="bot-stat">
+            Spawned: <span id="minionSpawned">0</span>
+        </div>
+        <div style="margin-top: 10px;">
+            <button id="startBotsButton" class="bot-button">Start Bots</button>
+            <button id="aiModeButton" class="bot-button">AI: OFF</button>
+            <button id="vShieldButton" class="bot-button">vShield: OFF</button>
+            <button id="settingButton" class="bot-button">Settings</button>
+        </div>
+        `;
+
+        document.body.appendChild(container);
+
+        document.getElementById("startBotsButton").addEventListener("click", toggleBots);
+        document.getElementById("aiModeButton").addEventListener("click", toggleAIMode);
+        document.getElementById("settingButton").addEventListener("click", createSettingsModal);
+        document.getElementById("vShieldButton").addEventListener("click", toggleVShield);
+
+        togglePanelVisibility();
+    }
+
+    function createSettingsModal() {
+        const modal = document.createElement('div');
+        modal.className = 'settings-modal';
+
+        modal.innerHTML = `
+            <label class="settings-label">Bot Name:</label>
+            <input type="text" id="botName" class="settings-input" value="${localStorage.getItem('botName') || ''}">
+
+            <label class="settings-label">Bot Amount:</label>
+            <input type="number" id="botAmount" class="settings-input" min="1" max="190" value="${localStorage.getItem('botAmount') || '50'}">
+
+            <label class="settings-label">Split Key:</label>
+            <input type="text" id="splitKey" class="settings-input" maxlength="1" value="${localStorage.getItem('botSplitKeybind') || 'f'}">
+
+            <label class="settings-label">Feed Key:</label>
+            <input type="text" id="feedKey" class="settings-input" maxlength="1" value="${localStorage.getItem('botFeedKeybind') || 't'}">
+
+            <label class="settings-label">AI Mode Key:</label>
+            <input type="text" id="aiKey" class="settings-input" maxlength="1" value="${localStorage.getItem('aiModeKeybind') || 'l'}">
+
+            <label class="settings-label">vShield Key:</label>
+            <input type="text" id="vshieldKey" class="settings-input" maxlength="1" value="${localStorage.getItem('vshieldKeybind') || 'v'}">
+
+            <div style="margin-top: 15px; text-align: center;">
+                <button id="savSettings" class="bot-button">Save Settings</button>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        document.getElementById('savSettings').addEventListener('click', () => {
+            saveSettings();
+            document.body.removeChild(modal);
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                document.body.removeChild(modal);
+            }
+        });
+    }
+
+    function saveSettings() {
+        const botName = document.getElementById('botName').value;
+        const botAmount = parseInt(document.getElementById('botAmount').value);
+        const splitKey = document.getElementById('splitKey').value.toLowerCase();
+        const feedKey = document.getElementById('feedKey').value.toLowerCase();
+        const aiKey = document.getElementById('aiKey').value.toLowerCase();
+        const vshieldKey = document.getElementById('vshieldKey').value.toLowerCase();
+
+        if (isNaN(botAmount) || botAmount < 1) {
+            alert('Bot amount must be a valid number greater than 0');
+            return;
+        }
+
+        localStorage.setItem('botName', botName);
+        localStorage.setItem('botAmount', botAmount);
+        localStorage.setItem('botSplitKeybind', splitKey);
+        localStorage.setItem('botFeedKeybind', feedKey);
+        localStorage.setItem('aiModeKeybind', aiKey);
+        localStorage.setItem('vshieldKeybind', vshieldKey);
+
+        window.botSplitKeybind = splitKey;
+        window.botFeedKeybind = feedKey;
+        window.aiModeKeybind = aiKey;
+        window.vshieldKeybind = vshieldKey;
+
+        if (window.botClient && window.botClient.ws) {
+            window.botClient.ws.send(JSON.stringify({
+                type: 'updateBotName',
+                botName: botName
+            }));
+
+            window.botClient.ws.send(JSON.stringify({
+                type: 'updateBotAmount',
+                botAmount: botAmount
+            }));
+
+            window.botClient.ws.send(JSON.stringify({
+                type: 'updateSettings',
+                settings: {
+                    splitKey,
+                    feedKey,
+                    aiKey,
+                    vshieldKey
+                }
+            }));
+        }
+
+        updateKeyBindings();
+
+        const modal = document.querySelector('.settings-modal');
+        if (modal) {
+            document.body.removeChild(modal);
+        }
+    }
+
+    function initializeSettings() {
+        const botName = localStorage.getItem('botName');
+        const botAmount = parseInt(localStorage.getItem('botAmount'));
+
+        if (window.botClient && window.botClient.ws) {
+            if (botName) {
+                window.botClient.ws.send(JSON.stringify({
+                    type: 'updateBotName',
+                    botName: botName
+                }));
+            }
+
+            if (!isNaN(botAmount) && botAmount > 0) {
+                window.botClient.ws.send(JSON.stringify({
+                    type: 'updateBotAmount',
+                    botAmount: botAmount
+                }));
+            }
+        }
+    }
+
+    function handleKeyPress(e) {
+        const key = e.key.toLowerCase();
+        const splitKey = localStorage.getItem('botSplitKeybind') || 'f';
+        const feedKey = localStorage.getItem('botFeedKeybind') || 't';
+        const aiKey = localStorage.getItem('aiModeKeybind') || 'l';
+        const vshieldKey = localStorage.getItem('vshieldKeybind') || 'v';
+
+        if (!window.botClient.ws) return;
+
+        switch (key) {
+            case splitKey:
+                window.botClient.ws.send(JSON.stringify({ type: 'split' }));
+                break;
+            case feedKey:
+                window.botClient.ws.send(JSON.stringify({ type: 'eject' }));
+                break;
+            case aiKey:
+                window.botClient.settings.aiMode = !window.botClient.settings.aiMode;
+                window.botClient.ws.send(JSON.stringify({ type: 'aiMode' }));
+                updateUIElement("aiModeButton", window.botClient.settings.aiMode);
+                break;
+            case vshieldKey:
+                toggleVShield();
+                break;
+        }
+    }
+
+    function updateKeyBindings() {
+        document.removeEventListener('keydown', handleKeyPress);
+        document.addEventListener('keydown', handleKeyPress);
+    }
+
+    setTimeout(() => {
+        updateKeyBindings();
+    }, 2500);
+
+    togglePanelVisibility();
+
+function toggleBots() {
+    const button = document.getElementById("startBotsButton");
+    if (!window.botClient.settings.running) {
+        // Iniciar bots y actualizar UI inmediatamente
+        window.botClient.settings.running = true;
+        window.start();
+        updateUIStatus('Started', 'running');
+        updateStartButton(true);
+    } else {
+        button.textContent = "Wait...";
+        button.disabled = true;
+        button.style.opacity = "0.7";
+        window.stop();
+    }
+}
+
+
+    function toggleAIMode() {
+        if (!window.botClient.ws) return;
+        window.botClient.settings.aiMode = !window.botClient.settings.aiMode;
+        const button = document.getElementById("aiModeButton");
+        button.textContent = `AI: ${window.botClient.settings.aiMode ? 'ON' : 'OFF'}`;
+        button.classList.toggle('active', window.botClient.settings.aiMode);
+        window.botClient.ws.send(JSON.stringify({ type: 'aiMode' }));
+    }
+
+    function updateBotName() {
+        const nameInput = document.getElementById("botNameInput");
+        if (nameInput && nameInput.value && window.botClient.ws) {
+            window.botClient.ws.send(JSON.stringify({
+                type: 'updateBotName',
+                botName: nameInput.value
+            }));
+        }
+    }
+
+    function togglePanelVisibility() {
+        const agarbotPanel = document.querySelector('#bots-container2');
+        if (agarbotPanel) {
+            console.log('Panel de Agarbot encontrado.');
+            document.addEventListener('keydown', (event) => {
+                if (event.key === '-' || event.key === '-') {
+                    if (agarbotPanel.style.display === 'none' || agarbotPanel.style.display === '') {
+                        agarbotPanel.style.display = 'block';
+                        console.log('Panel mostrado.');
+                    } else {
+                        agarbotPanel.style.display = 'none';
+                        console.log('Panel oculto.');
+                    }
+                }
+            });
+            clearInterval(timer);
+        } else {
+            console.log('Panel de Agarbot no encontrado. Continuar buscando...');
+        }
+    }
+
+    const timer = setInterval(togglePanelVisibility, 1000);
+
+    // Condition to check whether to load the bot
+    function checkAppCondition() {
+        return window.app;
+    }
+
+    // Mutation Observer or an interval to check for the condition
+    const checkInterval = setInterval(() => {
+        if (checkAppCondition()) {
+            clearInterval(checkInterval); // Stop checking once the condition is true
+            createUI(); // Call the function to start the bot
+        }
+    }, 1000); // Check every second
+
+  initWebSocket();
+})();
