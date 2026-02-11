@@ -838,240 +838,163 @@
         const style = document.createElement("style");
         style.type = "text/css";
         style.textContent = `
-            .harambro-info-panel {
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-                z-index: 99999999;
-                background: rgba(0, 0, 0, 0.3);
-                position: fixed;
-                top: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-family: 'Inter', sans-serif;
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                border-radius: 12px;
-                padding: 8px;
-                pointer-events: auto;
-                backdrop-filter: blur(12px);
-                visibility: visible;
-                opacity: 1;
-            }
-            .harambro-title {
-                position: fixed;
-                top: 0px;
-                left: 50%;
-                transform: translateX(-50%);
-                color: #ffffff;
-                font-size: 16px;
-                font-weight: 600;
-                font-family: 'Inter', sans-serif;
-                text-shadow: 1px 1px 0 #000000, -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 0 0 5px rgba(255, 255, 255, 0.4);
-                z-index: 99999998;
-                pointer-events: none;
-                visibility: visible;
-            }
-            .bot-text {
-                color: #ffffff;
-                font-size: 11px;
-                margin: 0 8px;
-                font-weight: 500;
-                text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
-            }
-            .bot-button {
-                background: linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.05));
-                color: #ffffff;
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                padding: 7px 12px;
-                margin: 0 4px;
-                cursor: pointer;
-                border-radius: 10px;
-                transition: all 0.3s ease;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 11px;
-                font-weight: 600;
-                backdrop-filter: blur(8px);
-                gap: 4px;
-            }
-            .bot-button:hover {
-                background: linear-gradient(135deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.1));
-                transform: scale(1.05);
-                box-shadow: 0 4px 12px rgba(255, 255, 255, 0.25);
-            }
-            .bot-button.active {
-                background: linear-gradient(135deg, rgba(255, 102, 102, 1), rgba(204, 51, 51, 1));
-                border-color: rgba(255, 77, 77, 0.6);
-            }
-            .bot-button:disabled {
-                opacity: 0.4;
-                cursor: not-allowed;
-            }
-            .small-button {
-                background: linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.05));
-                color: #ffffff;
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                padding: 6px 10px;
-                margin: 0 4px;
-                cursor: pointer;
-                border-radius: 8px;
-                transition: all 0.3s ease;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 10px;
-                font-weight: 600;
-                backdrop-filter: blur(8px);
-                gap: 2px;
-            }
-            .small-button:hover {
-                background: linear-gradient(135deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.1));
-                transform: scale(1.05);
-                box-shadow: 0 4px 12px rgba(255, 255, 255, 0.25);
-            }
-            .small-button.active {
-                background: linear-gradient(135deg, rgba(255, 102, 102, 1), rgba(204, 51, 51, 1));
-                border-color: rgba(255, 77, 77, 0.6);
-            }
-            .status-container {
-                position: relative;
-                display: inline-block;
-                text-align: center;
-            }
-            .status-indicator {
-                display: inline-block;
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                margin-right: 5px;
-                box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
-            }
-            .status-offline { background-color: #ff4d4d; }
-            .status-running { background-color: #4dff88; }
-            .status-stopped { background-color: #ffd966; }
-            .status-green { background-color: #4dff88; }
-            .stopwatch {
-                color: #ffffff;
-                font-size: 11px;
-                font-weight: 500;
-                text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
-                display: none;
-                margin-top: 5px;
-                text-align: center;
-            }
-            .settings-container {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-            }
-            .settings-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-            }
-            .settings-label {
-                margin: 5px 0;
-                font-size: 12px;
-                font-weight: 500;
-                color: #ffffff;
-                text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
-            }
-            .settings-input {
-                width: 100%;
-                padding: 6px 8px;
-                background: rgba(255, 255, 255, 0.3);
-                border: 1px solid rgba(255, 255, 255, 0.25);
-                color: #ffffff;
-                border-radius: 6px;
-                font-size: 11px;
-                transition: all 0.25s ease;
-                backdrop-filter: blur(8px);
-            }
-            .settings-input:focus {
-                border-color: rgba(51, 204, 255, 0.6);
-                box-shadow: 0 0 8px rgba(51, 204, 255, 0.4);
-                outline: none;
-            }
-            .settings-key-container {
-                display: flex;
-                flex-direction: column;
-                gap: 12px;
-                margin-top: 10px;
-            }
-            .keybind-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-                align-items: center;
-            }
-            .keybind-row {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 5px;
-            }
-            .settings-key {
-                padding: 6px 10px;
-                background: transparent;
-                border: 1px solid rgba(255, 255, 255, 0.25);
-                color: #ffffff;
-                border-radius: 6px;
-                font-size: 11px;
-                text-align: center;
-                min-width: 30px;
-                width: 40px;
-            }
-            .keybind-label {
-                color: #ffffff;
-                font-size: 11px;
-                font-weight: 500;
-                flex-grow: 1;
-                text-align: left;
-            }
-            .settings-save {
-                background: linear-gradient(135deg, rgba(255, 102, 102, 1), rgba(204, 51, 51, 1));
-                color: #ffffff;
-                border: none;
-                padding: 8px 14px;
-                cursor: pointer;
-                border-radius: 8px;
-                font-size: 12px;
-                font-weight: 600;
-                text-align: center;
-                transition: all 0.25s ease;
-                margin-top: 10px;
-                backdrop-filter: blur(8px);
-            }
-            .settings-save:hover {
-                background: linear-gradient(135deg, rgba(255, 128, 128, 1), rgba(230, 57, 57, 1));
-                transform: scale(1.02);
-                box-shadow: 0 3px 10px rgba(255, 77, 77, 0.5);
-            }
-        `;
+.draggable-panel{
+position:fixed;
+top:80px;
+right:40px;
+width:360px;
+background:rgba(18,18,22,0.92);
+backdrop-filter:blur(12px);
+border-radius:18px;
+border:1px solid rgba(255,255,255,0.08);
+box-shadow:0 15px 50px rgba(0,0,0,0.7);
+z-index:99999999;
+font-family:Inter,sans-serif;
+user-select:none;
+animation:panelFade .25s ease;
+}
+
+@keyframes panelFade{
+from{opacity:0;transform:scale(.95);}
+to{opacity:1;transform:scale(1);}
+}
+
+.panel-header{
+padding:10px 14px;
+cursor:grab;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-weight:600;
+font-size:13px;
+background:rgba(255,255,255,0.03);
+border-top-left-radius:18px;
+border-top-right-radius:18px;
+color:#fff;
+}
+
+.panel-content{
+padding:14px;
+display:flex;
+flex-direction:column;
+gap:10px;
+color:#fff;
+font-size:12px;
+}
+
+.start-big{
+background:linear-gradient(135deg,#ff2d55,#ff0040);
+border:none;
+color:white;
+font-weight:700;
+padding:12px;
+border-radius:12px;
+font-size:14px;
+cursor:pointer;
+box-shadow:0 0 20px rgba(255,0,80,0.6);
+transition:.2s;
+}
+
+.start-big:hover{
+transform:scale(1.05);
+box-shadow:0 0 30px rgba(255,0,80,0.9);
+}
+
+.small-button{
+background:#20232a;
+border:1px solid rgba(255,255,255,0.1);
+color:#aaa;
+padding:6px 10px;
+border-radius:8px;
+font-size:11px;
+cursor:pointer;
+}
+
+.mini-toggle{
+cursor:pointer;
+padding:4px 8px;
+border-radius:8px;
+background:rgba(255,255,255,0.06);
+}
+
+.mini-icon{
+position:fixed;
+top:80px;
+right:40px;
+width:60px;
+height:60px;
+border-radius:50%;
+background:linear-gradient(135deg,#ff2d55,#ff0040);
+display:none;
+align-items:center;
+justify-content:center;
+font-size:26px;
+color:white;
+box-shadow:0 0 25px rgba(255,0,80,0.7);
+cursor:grab;
+z-index:99999999;
+}
+
+.mini-icon.running{
+animation:pulseGlow 1s infinite;
+}
+
+@keyframes pulseGlow{
+0%{box-shadow:0 0 20px rgba(255,0,80,.6);}
+50%{box-shadow:0 0 35px rgba(255,0,80,1);}
+100%{box-shadow:0 0 20px rgba(255,0,80,.6);}
+}
+`;
+
         document.head.appendChild(style);
     };
 
     const initUI = () => {
         const savedName = localStorage.getItem("harambro-bot-name") || "@5harambro";
         const panelHTML = `
-            <div class="harambro-title">@5harambro</div>
-            <div class="harambro-info-panel">
-                <div class="bot-text status-container">
-                    <span class="status-indicator status-green" id="status-light"></span>
-                    <span id="status">Online</span>
-                    <div id="stopwatch" class="stopwatch">00:00</div>
-                </div>
-                <div class="bot-text">Bots: <span class="harambro-botCount">${botConfig.botCount}</span></div>
-                <button class="bot-button harambro-stfinish" onclick="window.startBots('stfinish')">â» Start</button>
-                <button class="bot-button harambro-stop" onclick="window.startBots('stop')" style="display: none">â¸ Stop</button>
-                <button class="small-button" onclick="window.toggleAIMode()">Ai ${botConfig.botAi ? 'ON' : 'OFF'}</button>
-                <button class="small-button" style="margin-left: 8px;" onclick="window.toggleVShield()">Vsh ${botConfig.vShield ? 'ON' : 'OFF'}</button>
-                <button class="small-button" onclick="window.toggleFixed()">ð Static OFF</button>
-                <button class="bot-button" onclick="window.toggleSettings()">âï¸</button>
-            </div>
-        `;
+<div class="draggable-panel" id="haramPanel">
+
+<div class="panel-header">
+<span>@5harambro</span>
+<span class="mini-toggle" onclick="window.minimizePanel()">—</span>
+</div>
+
+<div class="panel-content">
+
+<div>Status: <span id="status">Stopped</span></div>
+
+<div>Bots: <span class="harambro-botCount">${botConfig.botCount}</span></div>
+
+<button class="start-big" onclick="window.startBots('stfinish');window.setRunningState(true);">
+START BOTS
+</button>
+
+<button class="small-button" onclick="window.startBots('stop');window.setRunningState(false);">
+STOP
+</button>
+
+<button class="small-button" onclick="window.toggleAIMode()">
+AI ${botConfig.botAi ? 'ON' : 'OFF'}
+</button>
+
+<button class="small-button" onclick="window.toggleVShield()">
+VSH ${botConfig.vShield ? 'ON' : 'OFF'}
+</button>
+
+<button class="small-button" onclick="window.toggleFixed()">
+📍 Static
+</button>
+
+<button class="small-button" onclick="window.toggleSettings()">
+⚙ Settings
+</button>
+
+</div>
+</div>
+
+<div class="mini-icon" id="miniIcon" onclick="window.restorePanel()">🤖</div>
+`;
+
         const container = document.getElementById(panelId);
         if (container) {
             container.innerHTML = panelHTML;
@@ -1295,5 +1218,78 @@
         }
         document.body.style.touchAction = "";
     }
+
+  // PANEL DRAG + SAVE
+function savePanelPosition(x,y){
+localStorage.setItem("haramPanelPos",JSON.stringify({x,y}));
+}
+
+function loadPanelPosition(){
+const saved=localStorage.getItem("haramPanelPos");
+if(!saved)return;
+const pos=JSON.parse(saved);
+const panel=document.getElementById("haramPanel");
+const mini=document.getElementById("miniIcon");
+if(panel){
+panel.style.left=pos.x+"px";
+panel.style.top=pos.y+"px";
+panel.style.right="auto";
+}
+if(mini){
+mini.style.left=pos.x+"px";
+mini.style.top=pos.y+"px";
+mini.style.right="auto";
+}
+}
+
+function makeDraggable(el){
+let offsetX=0,offsetY=0,isDown=false;
+el.addEventListener("mousedown",e=>{
+isDown=true;
+const rect=el.getBoundingClientRect();
+offsetX=e.clientX-rect.left;
+offsetY=e.clientY-rect.top;
+});
+document.addEventListener("mouseup",()=>{
+if(!isDown)return;
+isDown=false;
+const rect=el.getBoundingClientRect();
+savePanelPosition(rect.left,rect.top);
+});
+document.addEventListener("mousemove",e=>{
+if(!isDown)return;
+el.style.left=(e.clientX-offsetX)+"px";
+el.style.top=(e.clientY-offsetY)+"px";
+el.style.right="auto";
+});
+}
+
+window.minimizePanel=function(){
+const panel=document.getElementById("haramPanel");
+const mini=document.getElementById("miniIcon");
+const rect=panel.getBoundingClientRect();
+mini.style.left=rect.left+"px";
+mini.style.top=rect.top+"px";
+panel.style.display="none";
+mini.style.display="flex";
+};
+
+window.restorePanel=function(){
+document.getElementById("haramPanel").style.display="block";
+document.getElementById("miniIcon").style.display="none";
+};
+
+window.setRunningState=function(running){
+const mini=document.getElementById("miniIcon");
+if(!mini)return;
+if(running)mini.classList.add("running");
+else mini.classList.remove("running");
+};
+
+setTimeout(()=>{
+makeDraggable(document.getElementById("haramPanel"));
+makeDraggable(document.getElementById("miniIcon"));
+loadPanelPosition();
+},800);
 
 })();
