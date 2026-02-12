@@ -19,7 +19,7 @@
 <link rel="apple-touch-icon" href="favicon.png">
 <meta name="apple-mobile-web-app-title" content="Harambro">
 
-<!-- Theme bootstrap: page flash olmadan tema uygula -->
+<!-- Theme bootstrap: sayfa açılırken flash olmasın -->
 <script>
   (function () {
     try {
@@ -50,12 +50,21 @@
   </div>
 
   <div class="nav-right">
-    <!-- Theme toggle -->
+    <!-- Premium theme toggle -->
     <button class="theme-btn" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">
-      <span class="theme-ico" aria-hidden="true">
-        <!-- icon will be swapped by JS -->
-        ☀️
-      </span>
+      <span class="theme-ring" aria-hidden="true"></span>
+
+      <!-- Sun (Light) -->
+      <svg class="theme-ico theme-sun" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"/>
+        <path d="M12 2v2.2M12 19.8V22M4.2 12H2M22 12h-2.2M5.1 5.1l1.55 1.55M17.35 17.35l1.55 1.55M18.9 5.1l-1.55 1.55M6.65 17.35 5.1 18.9"
+              fill="none" stroke-linecap="round" stroke-width="2"/>
+      </svg>
+
+      <!-- Moon (Dark) -->
+      <svg class="theme-ico theme-moon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M21 14.6A8.2 8.2 0 0 1 9.4 3a6.8 6.8 0 1 0 11.6 11.6Z"/>
+      </svg>
     </button>
 
     <button class="haram-btn">Haram Bro</button>
@@ -86,17 +95,10 @@
     var btn = document.getElementById("themeToggle");
     if(!btn) return;
 
-    var ico = btn.querySelector(".theme-ico");
-
     function apply(theme){
       document.documentElement.setAttribute("data-theme", theme);
       try { localStorage.setItem("theme", theme); } catch(e) {}
-      if(ico) ico.textContent = (theme === "dark") ? "🌙" : "☀️";
     }
-
-    // initial icon
-    var current = document.documentElement.getAttribute("data-theme") || "light";
-    apply(current);
 
     btn.addEventListener("click", function(){
       var now = document.documentElement.getAttribute("data-theme") || "light";
