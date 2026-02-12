@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,6 +18,19 @@
 <link rel="icon" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
 <meta name="apple-mobile-web-app-title" content="Harambro">
+
+<!-- Theme bootstrap: page flash olmadan tema uygula -->
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("theme"); // "light" | "dark" | null
+      var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      var theme = saved || (prefersDark ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    } catch (e) {}
+  })();
+</script>
+
 <script src="https://pl28561303.effectivegatecpm.com/27/66/ec/2766ece7a0e0304440b31f12e3c950d8.js"></script>
 </head>
 <body>
@@ -25,7 +38,7 @@
 <!-- NAVBAR -->
 <nav class="navbar">
   <div class="nav-left">
-    <img src="images/a.GIF" class="nav-logo">
+    <img src="images/a.GIF" class="nav-logo" alt="Harambro">
   </div>
 
   <div class="nav-center">
@@ -37,6 +50,14 @@
   </div>
 
   <div class="nav-right">
+    <!-- Theme toggle -->
+    <button class="theme-btn" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">
+      <span class="theme-ico" aria-hidden="true">
+        <!-- icon will be swapped by JS -->
+        ☀️
+      </span>
+    </button>
+
     <button class="haram-btn">Haram Bro</button>
   </div>
 </nav>
@@ -58,6 +79,31 @@
   </div>
   <p class="copy">© 2026 Harambro — Modded iOS Apps & IPA Library</p>
 </footer>
+
+<!-- Theme toggle logic (app.js'e dokunmadan) -->
+<script>
+  (function(){
+    var btn = document.getElementById("themeToggle");
+    if(!btn) return;
+
+    var ico = btn.querySelector(".theme-ico");
+
+    function apply(theme){
+      document.documentElement.setAttribute("data-theme", theme);
+      try { localStorage.setItem("theme", theme); } catch(e) {}
+      if(ico) ico.textContent = (theme === "dark") ? "🌙" : "☀️";
+    }
+
+    // initial icon
+    var current = document.documentElement.getAttribute("data-theme") || "light";
+    apply(current);
+
+    btn.addEventListener("click", function(){
+      var now = document.documentElement.getAttribute("data-theme") || "light";
+      apply(now === "dark" ? "light" : "dark");
+    });
+  })();
+</script>
 
 <script src="js/app.js"></script>
 </body>
