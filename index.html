@@ -1,86 +1,83 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HaramBro</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HaramBro</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css">
 
-<script>
-(function(){
-  try{
-    var saved = localStorage.getItem("theme");
-    var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    var theme = saved || (prefersDark ? "dark" : "light");
-    document.documentElement.setAttribute("data-theme", theme);
-  }catch(e){}
-})();
-</script>
+  <script>
+    (function(){
+      try{
+        var saved = localStorage.getItem("theme");
+        var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var theme = saved || (prefersDark ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      }catch(e){}
+    })();
+  </script>
 </head>
 <body>
 
-<nav class="navbar">
-  <div class="nav-left">
-    <img src="images/a.GIF" class="nav-logo">
-  </div>
-
-  <div class="nav-center">
-    <div class="tab active" onclick="showList('list1',this)">KSign</div>
-    <div class="tab" onclick="showList('list2',this)">ESign</div>
-    <div class="tab" onclick="showList('list3',this)">Agario Modes</div>
-    <div class="tab" onclick="showList('list4',this)">Game Apps</div>
-    <div class="tab" onclick="showList('list5',this)">Apps</div>
-  </div>
-
-  <div class="nav-right">
-
-    <!-- ON/OFF THEME SWITCH -->
-    <button class="theme-switch" id="themeToggle" type="button" aria-label="Theme Switch">
-      <span class="switch-track"></span>
-      <span class="switch-knob"></span>
-    </button>
-
-    <button class="haram-btn">Haram Bro</button>
-  </div>
-</nav>
-
-<div id="lists" class="list"></div>
-
-<footer>
-  <div class="footer-box">
-    <div class="footer-card">
-      <h3>About Harambro</h3>
-      <p>Harambro provides modded iOS apps & IPA tools.</p>
+  <nav class="navbar">
+    <div class="nav-left">
+      <img src="images/a.GIF" class="nav-logo" alt="logo">
     </div>
-    <div class="footer-card">
-      <h3>Support</h3>
-      <p>Email • Telegram • Contact</p>
+
+    <div class="nav-center">
+      <div class="tab active" onclick="showList('list1',this)">KSign</div>
+      <div class="tab" onclick="showList('list2',this)">ESign</div>
+      <div class="tab" onclick="showList('list3',this)">Agario Modes</div>
+      <div class="tab" onclick="showList('list4',this)">Game Apps</div>
+      <div class="tab" onclick="showList('list5',this)">Apps</div>
     </div>
-  </div>
-  <p class="copy">© 2026 Harambro</p>
-</footer>
 
-<script>
-(function(){
-  var btn = document.getElementById("themeToggle");
+    <div class="nav-right">
+      <button class="theme-switch" id="themeToggle" type="button" aria-label="Theme Switch">
+        <span class="switch-track"></span>
+        <span class="switch-knob"></span>
+      </button>
+      <button class="haram-btn">Haram Bro</button>
+    </div>
+  </nav>
 
-  function setTheme(t){
-    document.documentElement.setAttribute("data-theme", t);
-    localStorage.setItem("theme", t);
-  }
+  <div id="lists" class="list"></div>
 
-  btn.addEventListener("click", function(){
-    var current = document.documentElement.getAttribute("data-theme");
-    setTheme(current === "dark" ? "light" : "dark");
-  });
-})();
-</script>
+  <footer>
+    <div class="footer-box">
+      <div class="footer-card">
+        <h3>About Harambro</h3>
+        <p>Harambro provides modded iOS apps & IPA tools.</p>
+      </div>
+      <div class="footer-card">
+        <h3>Support</h3>
+        <p>Email • Telegram • Contact</p>
+      </div>
+    </div>
+    <p class="copy">© 2026 Harambro</p>
+  </footer>
 
-<script src="js/app.js"></script>
+  <script>
+    (function(){
+      var btn = document.getElementById("themeToggle");
+      function setTheme(t){
+        document.documentElement.setAttribute("data-theme", t);
+        localStorage.setItem("theme", t);
+      }
+      btn.addEventListener("click", function(){
+        var current = document.documentElement.getAttribute("data-theme");
+        setTheme(current === "dark" ? "light" : "dark");
+      });
+    })();
+  </script>
+
+  <script src="https://pl28704305.effectivegatecpm.com/b8/c7/a3/b8c7a3140347cf78cfb6c89174a952f0.js" async></script>
+
+  <script src="js/app.js"></script>
 </body>
 </html>
