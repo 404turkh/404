@@ -227,12 +227,12 @@ list3: [
 {logo:"raga.png",name:"Agar.io",desc:"Anarky + Shark mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/anarky+shark.26.3.5.ipa"},
 {logo:"raga.png",name:"Agar.io",desc:"Biteskin mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/biteskin.26.3.5.ipa"},
 {logo:"raga.png",name:"Agar.io",desc:"Kahraba Mod Requires License",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/26.3.5.kahraba.ipa"},
-{logo:"scrt.PNG",name:"Bot Script",desc:"Free bot script that works together with Web Delta Agario.",url:"https://raw.githubusercontent.com/404turkh/404/refs/heads/main/js/harambro.user.js"}
+{logo:"scrt.PNG",name:"Bot Script",desc:"Free bot script that works together with Web Delta Agario.",url:"https://raw.githubusercontent.com/404turkh/404/refs/heads/main/js/hrm.user.js"}
 ],
 
 list4: [
 {logo:"mn.png",name:"Minecraft",desc:"Build, explore, and survive in a fully open world. Gather resources, craft tools, and create anything you imagine",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/Minecraft.ipa"},
-{logo:"go.png",name:"Geometry",desc:"Jump and fly your way through danger in this rhythm-based action platformer",url:"https://raw.githubusercontent.com/404turkh/404/refs/heads/main/js/hrm.user.js"}
+{logo:"go.png",name:"Geometry",desc:"Jump and fly your way through danger in this rhythm-based action platformer",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/Geometry.ipa"}
 ],
 
 list5: [
