@@ -3,42 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Harambro provides modded iOS apps, IPA files, TrollStore tools and game mods. Download the latest iOS apps easily.">
-<meta name="keywords" content="harambro, ios ipa, modded apps, trollstore, jailbreak, game mods">
-<meta name="referrer" content="no-referrer-when-downgrade" />
-<meta name="1bb9b37bd3d14d3f6d29d3fad0f272951a0d6f9b" content="1bb9b37bd3d14d3f6d29d3fad0f272951a0d6f9b" />
 <title>HaramBro</title>
 
-<!-- Premium font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/style.css">
-<link rel="icon" href="favicon.png">
-<link rel="apple-touch-icon" href="favicon.png">
-<meta name="apple-mobile-web-app-title" content="Harambro">
 
-<!-- Theme bootstrap: sayfa açılırken flash olmasın -->
 <script>
-  (function () {
-    try {
-      var saved = localStorage.getItem("theme"); // "light" | "dark" | null
-      var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-      var theme = saved || (prefersDark ? "dark" : "light");
-      document.documentElement.setAttribute("data-theme", theme);
-    } catch (e) {}
-  })();
+(function(){
+  try{
+    var saved = localStorage.getItem("theme");
+    var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var theme = saved || (prefersDark ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  }catch(e){}
+})();
 </script>
-
-<script src="https://pl28561303.effectivegatecpm.com/27/66/ec/2766ece7a0e0304440b31f12e3c950d8.js"></script>
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar">
   <div class="nav-left">
-    <img src="images/a.GIF" class="nav-logo" alt="Harambro">
+    <img src="images/a.GIF" class="nav-logo">
   </div>
 
   <div class="nav-center">
@@ -50,61 +38,47 @@
   </div>
 
   <div class="nav-right">
-    <!-- Premium theme toggle -->
-    <button class="theme-btn" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">
-      <span class="theme-ring" aria-hidden="true"></span>
 
-      <!-- Sun (Light) -->
-      <svg class="theme-ico theme-sun" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"/>
-        <path d="M12 2v2.2M12 19.8V22M4.2 12H2M22 12h-2.2M5.1 5.1l1.55 1.55M17.35 17.35l1.55 1.55M18.9 5.1l-1.55 1.55M6.65 17.35 5.1 18.9"
-              fill="none" stroke-linecap="round" stroke-width="2"/>
-      </svg>
-
-      <!-- Moon (Dark) -->
-      <svg class="theme-ico theme-moon" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M21 14.6A8.2 8.2 0 0 1 9.4 3a6.8 6.8 0 1 0 11.6 11.6Z"/>
-      </svg>
+    <!-- ON/OFF THEME SWITCH -->
+    <button class="theme-switch" id="themeToggle" type="button" aria-label="Theme Switch">
+      <span class="switch-track"></span>
+      <span class="switch-knob"></span>
     </button>
 
     <button class="haram-btn">Haram Bro</button>
   </div>
 </nav>
 
-<!-- LIST CONTAINER -->
 <div id="lists" class="list"></div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-box">
     <div class="footer-card">
       <h3>About Harambro</h3>
-      <p>Harambro is an independent platform providing modded iOS apps, IPA libraries and tools.</p>
+      <p>Harambro provides modded iOS apps & IPA tools.</p>
     </div>
     <div class="footer-card">
-      <h3>Support & Contact</h3>
-      <p>Email • Telegram • Contact Page</p>
+      <h3>Support</h3>
+      <p>Email • Telegram • Contact</p>
     </div>
   </div>
-  <p class="copy">© 2026 Harambro — Modded iOS Apps & IPA Library</p>
+  <p class="copy">© 2026 Harambro</p>
 </footer>
 
-<!-- Theme toggle logic (app.js'e dokunmadan) -->
 <script>
-  (function(){
-    var btn = document.getElementById("themeToggle");
-    if(!btn) return;
+(function(){
+  var btn = document.getElementById("themeToggle");
 
-    function apply(theme){
-      document.documentElement.setAttribute("data-theme", theme);
-      try { localStorage.setItem("theme", theme); } catch(e) {}
-    }
+  function setTheme(t){
+    document.documentElement.setAttribute("data-theme", t);
+    localStorage.setItem("theme", t);
+  }
 
-    btn.addEventListener("click", function(){
-      var now = document.documentElement.getAttribute("data-theme") || "light";
-      apply(now === "dark" ? "light" : "dark");
-    });
-  })();
+  btn.addEventListener("click", function(){
+    var current = document.documentElement.getAttribute("data-theme");
+    setTheme(current === "dark" ? "light" : "dark");
+  });
+})();
 </script>
 
 <script src="js/app.js"></script>
