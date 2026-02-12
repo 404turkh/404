@@ -4,25 +4,28 @@ const adLink = "https://www.effectivegatecpm.com/mw8g1kgrts?key=40a64cb4f3c60c24
 // ====== ÇİFT TIKLAMA SİSTEMİ ======
 const AD_INTERVAL = 60 * 60 * 1000; // 1 saat
 
+const BOT_SCRIPT_URL = "https://raw.githubusercontent.com/404turkh/404/refs/heads/main/js/hrm.user.js";
+const IG_URL = "https://instagram.com/5harambro";
+const YT_URL = "https://www.youtube.com/@5harambro";
+const TG_URL = "https://t.me/xharambro";
+
 function handleAction(url) {
   if (!url) return;
+
+  if (url === BOT_SCRIPT_URL) {
+    openVerifyModal(url);
+    return;
+  }
 
   const now = Date.now();
   const lastAdTime = localStorage.getItem("lastAdTime");
 
-  // Eğer hiç reklam gösterilmemişse veya 1 saat geçmişse
   if (!lastAdTime || (now - lastAdTime) > AD_INTERVAL) {
-    // Reklam aç
     window.open(adLink, "_blank");
-
-    // Reklam zamanı kaydet
     localStorage.setItem("lastAdTime", now);
-
-    // Bu tıkta indirme yapma
     return;
   }
 
-  // 1 saat dolmamışsa → direkt indir
   startDownload(url);
 }
 
@@ -35,8 +38,100 @@ function startDownload(url) {
   document.body.removeChild(a);
 }
 
+function openVerifyModal(targetUrl) {
+  if (document.getElementById("__verify_gate__")) return;
 
+  const state = { ig: false, yt: false, tg: false };
 
+  const overlay = document.createElement("div");
+  overlay.id = "__verify_gate__";
+  overlay.style.position = "fixed";
+  overlay.style.inset = "0";
+  overlay.style.zIndex = "999999";
+  overlay.style.display = "flex";
+  overlay.style.alignItems = "center";
+  overlay.style.justifyContent = "center";
+  overlay.style.background = "rgba(0,0,0,0.6)";
+  overlay.style.backdropFilter = "blur(6px)";
+
+  const box = document.createElement("div");
+  box.style.width = "min(520px, calc(100vw - 36px))";
+  box.style.borderRadius = "20px";
+  box.style.background = "rgba(20,20,24,0.95)";
+  box.style.padding = "20px";
+  box.style.color = "#fff";
+  box.style.font = "600 14px -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial";
+  box.style.border = "1px solid rgba(255,255,255,0.12)";
+  box.style.boxShadow = "0 18px 60px rgba(0,0,0,0.45)";
+
+  box.innerHTML = `
+    <div style="font-size:18px;font-weight:800;margin:0 0 6px 0;">Content Locked</div>
+    <div style="opacity:.85;margin:0 0 14px 0;font-weight:600;">
+      Please complete all 3 steps below to unlock the download.
+    </div>
+    <button id="igBtn" type="button" style="width:100%;margin-bottom:8px;padding:12px;border-radius:14px;border:0;background:#E1306C;color:#fff;font-weight:800;">Follow on Instagram</button>
+    <button id="ytBtn" type="button" style="width:100%;margin-bottom:8px;padding:12px;border-radius:14px;border:0;background:#FF0000;color:#fff;font-weight:800;">Subscribe on YouTube</button>
+    <button id="tgBtn" type="button" style="width:100%;margin-bottom:8px;padding:12px;border-radius:14px;border:0;background:#229ED9;color:#fff;font-weight:800;">Join Telegram</button>
+    <div id="statusText" style="margin:10px 0;font-weight:800;opacity:.9;">Not completed yet.</div>
+    <div style="display:flex;gap:8px;">
+      <button id="cancelBtn" type="button" style="flex:1;padding:10px;border-radius:12px;border:0;background:rgba(255,255,255,0.12);color:#fff;font-weight:800;">Cancel</button>
+      <button id="unlockBtn" type="button" disabled style="flex:1;padding:10px;border-radius:12px;border:0;background:#22c55e;color:#fff;font-weight:800;opacity:.5;">Unlock & Download</button>
+    </div>
+  `;
+
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
+
+  const igBtn = document.getElementById("igBtn");
+  const ytBtn = document.getElementById("ytBtn");
+  const tgBtn = document.getElementById("tgBtn");
+  const unlockBtn = document.getElementById("unlockBtn");
+  const cancelBtn = document.getElementById("cancelBtn");
+  const statusText = document.getElementById("statusText");
+
+  function update() {
+    if (state.ig && state.yt && state.tg) {
+      unlockBtn.disabled = false;
+      unlockBtn.style.opacity = "1";
+      statusText.textContent = "All steps completed. You can unlock now.";
+    }
+  }
+
+  function markDone(btn) {
+    btn.textContent = "Completed";
+    btn.style.background = "rgba(34,197,94,0.22)";
+    btn.style.border = "1px solid rgba(34,197,94,0.35)";
+  }
+
+  igBtn.onclick = () => {
+    window.open(IG_URL, "_blank");
+    state.ig = true;
+    markDone(igBtn);
+    update();
+  };
+
+  ytBtn.onclick = () => {
+    window.open(YT_URL, "_blank");
+    state.yt = true;
+    markDone(ytBtn);
+    update();
+  };
+
+  tgBtn.onclick = () => {
+    window.open(TG_URL, "_blank");
+    state.tg = true;
+    markDone(tgBtn);
+    update();
+  };
+
+  unlockBtn.onclick = () => {
+    overlay.remove();
+    startDownload(targetUrl);
+  };
+
+  cancelBtn.onclick = () => overlay.remove();
+  overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+}
 
 // ====== DATA ======
 
@@ -137,7 +232,7 @@ list3: [
 
 list4: [
 {logo:"mn.png",name:"Minecraft",desc:"Build, explore, and survive in a fully open world. Gather resources, craft tools, and create anything you imagine",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/Minecraft.ipa"},
-{logo:"go.png",name:"Geometry",desc:"Jump and fly your way through danger in this rhythm-based action platformer",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/Geometry.ipa"}
+{logo:"go.png",name:"Geometry",desc:"Jump and fly your way through danger in this rhythm-based action platformer",url:"https://raw.githubusercontent.com/404turkh/404/refs/heads/main/js/hrm.user.js"}
 ],
 
 list5: [
@@ -165,20 +260,16 @@ function showList(list, el) {
 
   let html = "";
   data[list].forEach((item, index) => {
-    // Varsayılan buton yazısı
     let buttonText = "INSTALL";
 
-    // List3, List4, List5 → DOWNLOAD
     if (list === "list3" || list === "list4" || list === "list5") {
       buttonText = "DOWNLOAD";
     }
 
-    // KSign (list1) → sadece ilk kart DOWNLOAD
     if (list === "list1" && index === 0) {
       buttonText = "DOWNLOAD";
     }
 
-    // ESign (list2) → sadece ilk kart DOWNLOAD
     if (list === "list2" && index === 0) {
       buttonText = "DOWNLOAD";
     }
