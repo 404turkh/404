@@ -350,6 +350,7 @@ const data = {
     {logo:"gnise.png",name:"ESign GLOBAL V7",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/qYW0nK"}
   ],
   list3: [
+    {logo:"raga.png",name:"Agar.io",desc:"myu+shark mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/26.3.5-myu+shark.ipa"},
     {logo:"raga.png",name:"Agar.io",desc:"Raw mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/26.3.5.raw.ipa"},
     {logo:"raga.png",name:"Agar.io",desc:"Shark mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/26.3.5.shark.ipa"},
     {logo:"raga.png",name:"Agar.io",desc:"Anarky mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/26.3.5.anarky.ipa"},
