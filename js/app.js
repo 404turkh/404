@@ -350,15 +350,15 @@ const data = {
     {logo:"gnise.png",name:"ESign GLOBAL V7",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/qYW0nK"}
   ],
   list3: [
-    {logo:"raga.png",name:"Agar.io",desc:"myu+shark mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/26.3.5-myu+shark.ipa"},
-    {logo:"raga.png",name:"Agar.io",desc:"Raw mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/26.3.5.raw.ipa"},
-    {logo:"raga.png",name:"Agar.io",desc:"Shark mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/26.3.5.shark.ipa"},
-    {logo:"raga.png",name:"Agar.io",desc:"Anarky mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/26.3.5.anarky.ipa"},
-    {logo:"raga.png",name:"Agar.io",desc:"Memedit mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/26.3.5.memedit.ipa"},
-    {logo:"raga.png",name:"Agar.io",desc:"Coinskinfree mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/Agario-coinskinfree-26.3.5.ipa"},
-    {logo:"raga.png",name:"Agar.io",desc:"Anarky + Shark mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/anarky+shark.26.3.5.ipa"},
-    {logo:"raga.png",name:"Agar.io",desc:"Biteskin mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/biteskin.26.3.5.ipa"},
-    {logo:"raga.png",name:"Agar.io",desc:"Kahraba Mod Requires License",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1%ED%84%B0%ED%81%AC/26.3.5.kahraba.ipa"},
+    {logo:"raga.png",name:"Agar.io",desc:"myu+shark mod 26.4.0",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.myu+shark.ipa"},
+    {logo:"raga.png",name:"Agar.io",desc:"Raw mod 26.4.0",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.raw.ipa"},
+    {logo:"raga.png",name:"Agar.io",desc:"Shark mod 26.4.0",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.shark.ipa"},
+    {logo:"raga.png",name:"Agar.io",desc:"Anarky mod 26.4.0",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.anarky.ipa"},
+    {logo:"raga.png",name:"Agar.io",desc:"Memedit mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.memedit.ipa"},
+    {logo:"raga.png",name:"Agar.io",desc:"Coinskinfree mod 26.4.0",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.coinskinsfree.ipa"},
+    {logo:"raga.png",name:"Agar.io",desc:"Anarky + Shark mod 26.4.0",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.anarky+shark.ipa"},
+    {logo:"raga.png",name:"Agar.io",desc:"Biteskin mod 26.4.0",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.biteskin.ipa"},
+    {logo:"raga.png",name:"Agar.io",desc:"ctrl",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.ctrl.ipa"},
     {logo:"scrt.PNG",name:"Bot Script",desc:"Free bot script that works together with Web Delta Agario.",url:"https://raw.githubusercontent.com/404turkh/404/refs/heads/main/js/hrm.user.js"}
   ],
   list4: [
