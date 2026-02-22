@@ -354,11 +354,13 @@ const data = {
     {logo:"raga.png",name:"Agar.io",desc:"Raw mod 26.4.0",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.raw.ipa"},
     {logo:"raga.png",name:"Agar.io",desc:"Shark mod 26.4.0",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.shark.ipa"},
     {logo:"raga.png",name:"Agar.io",desc:"Anarky mod 26.4.0",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.anarky.ipa"},
-    {logo:"raga.png",name:"Agar.io",desc:"Memedit mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.memedit.ipa"},
-    {logo:"raga.png",name:"Agar.io",desc:"Coinskinfree mod 26.4.0",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.coinskinsfree.ipa"},
     {logo:"raga.png",name:"Agar.io",desc:"Anarky + Shark mod 26.4.0",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.anarky+shark.ipa"},
+    {logo:"raga.png",name:"Agar.io",desc:"Kahraba Mod Requires License",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.kahraba.ipa"},
+    {logo:"raga.png",name:"Agar.io",desc:"Kahraba+shark Mod Requires License",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.kahraba+shark.ipa"},
+    {logo:"raga.png",name:"Agar.io",desc:"Coinskinfree mod 26.4.0",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.coinskinsfree.ipa"},
     {logo:"raga.png",name:"Agar.io",desc:"Biteskin mod 26.4.0",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.biteskin.ipa"},
     {logo:"raga.png",name:"Agar.io",desc:"ctrl",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.ctrl.ipa"},
+    {logo:"raga.png",name:"Agar.io",desc:"Memedit mod 26.3.5",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.memedit.ipa"},
     {logo:"scrt.PNG",name:"Bot Script",desc:"Free bot script that works together with Web Delta Agario.",url:"https://raw.githubusercontent.com/404turkh/404/refs/heads/main/js/hrm.user.js"}
   ],
   list4: [
