@@ -312,7 +312,7 @@ const data = {
     {logo:"ngisk.png",name:"KSign GLOBAL V7",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/kcvpWe"}
   ],
   list2: [
-    {logo:"tw.png",name:"esing",desc:"Certificate",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1/ESignCert.zip "},
+    {logo:"tw.png",name:"esing",desc:"Certificate",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1/ESignCert.zip"},
     {logo:"gnise.png",name:"ESign✅",desc:"VIETNAM AIRLINES JSC",url:"https://api.khoindvn.io.vn/mJoVMn"},
     {logo:"gnise.png",name:"ESign",desc:"Forevermark Marketing (Shanghai) Limited",url:"https://api.khoindvn.io.vn/aAqGZk"},
     {logo:"gnise.png",name:"ESign",desc:"PowerChina International Group Limited",url:"https://api.khoindvn.io.vn/IDcW4P"},
