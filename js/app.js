@@ -4,7 +4,7 @@ const POPUNDER_SRC = "https://pl28561303.effectivegatecpm.com/27/66/ec/2766ece7a
 let AD_INTERVAL = 60 * 60 * 1000;
 
 fetch(window.location.href, { method: "HEAD", cache: "no-store" })
-  .then(r => {
+  .then((r) => {
     const v = r.headers.get("x-ad-interval");
     if (v) AD_INTERVAL = parseInt(v, 10);
   })
@@ -220,6 +220,7 @@ function openVerifyModal(targetUrl) {
     vgDot1.classList.toggle("done", state.ig);
     vgDot2.classList.toggle("done", state.yt);
     vgDot3.classList.toggle("done", state.tg);
+
     if (state.ig && state.yt && state.tg) {
       unlockBtn.disabled = false;
       setStatus("All steps completed. You can unlock now.");
@@ -241,7 +242,10 @@ function openVerifyModal(targetUrl) {
     else if (step === "tg" && !state.tg) { state.tg = true; markDone(tgBtn, tgBadge); }
 
     updateProgress();
-    if (!(state.ig && state.yt && state.tg)) setStatus("Step completed. Please finish the remaining steps.");
+
+    if (!(state.ig && state.yt && state.tg)) {
+      setStatus("Step completed. Please finish the remaining steps.");
+    }
   }
 
   function closeGate() {
@@ -258,16 +262,59 @@ function openVerifyModal(targetUrl) {
   window.addEventListener("focus", onFocus);
   document.addEventListener("visibilitychange", onVis);
 
-  igBtn.onclick = () => { window.open(IG_URL, "_blank"); state.pending = "ig"; setStatus("Go to Instagram tab and come back to complete this step."); };
-  ytBtn.onclick = () => { window.open(YT_URL, "_blank"); state.pending = "yt"; setStatus("Go to YouTube tab and come back to complete this step."); };
-  tgBtn.onclick = () => { window.open(TG_URL, "_blank"); state.pending = "tg"; setStatus("Go to Telegram tab and come back to complete this step."); };
+  igBtn.onclick = () => {
+    window.open(IG_URL, "_blank");
+    state.pending = "ig";
+    setStatus("Go to Instagram tab and come back to complete this step.");
+  };
 
-  unlockBtn.onclick = () => { closeGate(); startDownload(targetUrl); };
+  ytBtn.onclick = () => {
+    window.open(YT_URL, "_blank");
+    state.pending = "yt";
+    setStatus("Go to YouTube tab and come back to complete this step.");
+  };
+
+  tgBtn.onclick = () => {
+    window.open(TG_URL, "_blank");
+    state.pending = "tg";
+    setStatus("Go to Telegram tab and come back to complete this step.");
+  };
+
+  unlockBtn.onclick = () => {
+    closeGate();
+    startDownload(targetUrl);
+  };
+
   cancelBtn.onclick = () => closeGate();
-  overlay.onclick = (e) => { if (e.target === overlay) closeGate(); };
+  overlay.onclick = (e) => {
+    if (e.target === overlay) closeGate();
+  };
 
   updateProgress();
 }
+
+const categoryMeta = {
+  list1: {
+    title: "KSign",
+    desc: "Browse KSign certificates, profiles, and related install options."
+  },
+  list2: {
+    title: "ESign",
+    desc: "Browse ESign certificates, profiles, and signing resources."
+  },
+  list3: {
+    title: "Agario Modes",
+    desc: "Browse Agario builds, mods, and extra bot script downloads."
+  },
+  list4: {
+    title: "Game Apps",
+    desc: "Browse game-related app downloads and featured titles."
+  },
+  list5: {
+    title: "Apps",
+    desc: "Browse utility apps, media apps, and installer tools."
+  }
+};
 
 const data = {
   list1: [
@@ -387,30 +434,95 @@ const data = {
   ]
 };
 
-function showList(list, el) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-
-  let html = "";
-  data[list].forEach((item, index) => {
-    let buttonText = "INSTALL";
-    if (list === "list3" || list === "list4" || list === "list5") buttonText = "DOWNLOAD";
-    if (list === "list1" && index === 0) buttonText = "DOWNLOAD";
-    if (list === "list2" && index === 0) buttonText = "DOWNLOAD";
-
-    html += `
-      <div class="card" onclick="handleAction('${item.url}')">
-        <img class="logo" src="images/${item.logo}" alt="">
-        <div class="text">
-          <h4>${item.name}</h4>
-          <p>${item.desc}</p>
-        </div>
-        <button class="btn">${buttonText}</button>
-      </div>
-    `;
-  });
-
-  document.getElementById("lists").innerHTML = html;
+function getButtonText(list, index) {
+  if (list === "list3" || list === "list4" || list === "list5") return "DOWNLOAD";
+  if ((list === "list1" || list === "list2") && index === 0) return "DOWNLOAD";
+  return "INSTALL";
 }
 
-showList('list1', document.querySelector('.tab'));
+function updateCategoryUI(list) {
+  const meta = categoryMeta[list] || { title: "Library", desc: "Browse available items." };
+  const title1 = document.getElementById("activeCategoryLabel");
+  const title2 = document.getElementById("activeCategoryTitle");
+  const desc = document.getElementById("activeCategoryDesc");
+  const count = document.getElementById("itemCount");
+
+  if (title1) title1.textContent = meta.title;
+  if (title2) title2.textContent = meta.title;
+  if (desc) desc.textContent = meta.desc;
+  if (count) count.textContent = `${(data[list] || []).length} items`;
+}
+
+function createCard(item, list, index) {
+  const card = document.createElement("div");
+  card.className = "card";
+  card.addEventListener("click", () => handleAction(item.url));
+
+  const logo = document.createElement("img");
+  logo.className = "logo";
+  logo.src = `images/${item.logo}`;
+  logo.alt = item.name || "Item logo";
+
+  const text = document.createElement("div");
+  text.className = "text";
+
+  const title = document.createElement("h4");
+  title.textContent = item.name || "";
+
+  const desc = document.createElement("p");
+  desc.textContent = item.desc || "No description available.";
+
+  text.appendChild(title);
+  text.appendChild(desc);
+
+  const btn = document.createElement("button");
+  btn.className = "btn";
+  btn.type = "button";
+  btn.textContent = getButtonText(list, index);
+
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    handleAction(item.url);
+  });
+
+  card.appendChild(logo);
+  card.appendChild(text);
+  card.appendChild(btn);
+
+  return card;
+}
+
+function showList(list, clickedTab = null) {
+  const listWrap = document.getElementById("lists");
+  if (!listWrap || !data[list]) return;
+
+  document.querySelectorAll(".tab").forEach((tab) => {
+    tab.classList.toggle("active", tab.dataset.list === list);
+  });
+
+  if (clickedTab) {
+    clickedTab.classList.add("active");
+  }
+
+  listWrap.innerHTML = "";
+  data[list].forEach((item, index) => {
+    listWrap.appendChild(createCard(item, list, index));
+  });
+
+  updateCategoryUI(list);
+}
+
+function initTabs() {
+  const tabs = document.querySelectorAll(".tab");
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const list = tab.dataset.list;
+      showList(list, tab);
+    });
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initTabs();
+  showList("list1");
+});
