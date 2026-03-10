@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agario Skins</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/agarioskins.css">
+
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("theme");
+        var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var theme = saved || (prefersDark ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="navbar">
+      <div class="nav-left">
+        <img src="images/a.GIF" class="nav-logo" alt="HaramBro Logo">
+        <div class="brand-text">
+          <h1>HaramBro</h1>
+          <p>iOS Apps & Tools Library</p>
+        </div>
+      </div>
+
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="agarioskins.html" class="nav-link active">Agario Skins</a>
+        </div>
+
+        <button class="theme-switch" id="themeToggle" type="button" aria-label="Theme Switch">
+          <span class="switch-track"></span>
+          <span class="switch-knob"></span>
+        </button>
+
+        <button class="haram-btn" type="button">Haram Bro</button>
+      </div>
+    </nav>
+
+    <section class="hero skins-hero">
+      <div class="hero-content">
+        <span class="hero-badge">Skins Library</span>
+        <h2>Agario Skins</h2>
+        <p>Browse your skin collections below.</p>
+      </div>
+    </section>
+
+    <section class="tabs-section skins-tabs-section">
+      <div class="skins-tabs-wrap">
+        <button class="skins-tab active" type="button" data-panel="mySkinsPanel">My Skins</button>
+        <button class="skins-tab" type="button" data-panel="duoSkinsPanel">Duo Skins</button>
+      </div>
+    </section>
+  </header>
+
+  <main class="page-shell skins-page-shell">
+    <section class="skins-panel active" id="mySkinsPanel">
+      <div class="skins-grid my-skins-grid" id="mySkinsGrid"></div>
+    </section>
+
+    <section class="skins-panel" id="duoSkinsPanel">
+      <div class="skins-grid duo-skins-grid" id="duoSkinsGrid"></div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      var btn = document.getElementById("themeToggle");
+      function setTheme(t) {
+        document.documentElement.setAttribute("data-theme", t);
+        localStorage.setItem("theme", t);
+      }
+      btn.addEventListener("click", function () {
+        var current = document.documentElement.getAttribute("data-theme");
+        setTheme(current === "dark" ? "light" : "dark");
+      });
+    })();
+  </script>
+
+  <script src="js/agarioskins.js"></script>
+</body>
+</html>
