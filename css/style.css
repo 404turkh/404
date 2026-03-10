@@ -160,8 +160,37 @@ html[data-theme="dark"] .navbar::before{
 .nav-right{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:14px;
   flex-shrink:0;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:22px;
+  flex-wrap:wrap;
+}
+
+.nav-link{
+  text-decoration:none;
+  font-weight:800;
+  font-size:16px;
+  color:var(--muted);
+  background:none;
+  border:none;
+  padding:0;
+  white-space:nowrap;
+  transition:color .2s ease, opacity .2s ease, transform .2s ease;
+}
+
+.nav-link:hover{
+  color:var(--text);
+  transform:translateY(-1px);
+}
+
+.nav-link.active{
+  color:var(--brand2);
 }
 
 .haram-btn{
@@ -503,6 +532,12 @@ footer{
   .nav-right{
     width:100%;
     justify-content:space-between;
+    flex-wrap:wrap;
+  }
+
+  .nav-links{
+    width:100%;
+    justify-content:center;
   }
 
   .hero-content h2{
@@ -564,7 +599,18 @@ footer{
   }
 
   .nav-right{
-    gap:8px;
+    gap:10px;
+  }
+
+  .nav-links{
+    width:100%;
+    justify-content:center;
+    gap:18px;
+  }
+
+  .nav-link{
+    flex:none;
+    text-align:center;
   }
 
   .haram-btn{
