@@ -1,0 +1,135 @@
+.skins-hero {
+  margin-top: 18px;
+}
+
+.skins-tabs-section {
+  margin-top: 16px;
+}
+
+.skins-tabs-wrap {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface-card);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  box-shadow: var(--shadow-soft);
+}
+
+.skins-tab {
+  border: none;
+  padding: 12px 18px;
+  border-radius: var(--pill);
+  font-weight: 900;
+  cursor: pointer;
+  color: var(--muted);
+  background: transparent;
+  transition: all .2s ease;
+}
+
+.skins-tab:hover {
+  color: var(--text);
+  background: rgba(74,108,247,.08);
+}
+
+.skins-tab.active {
+  background: linear-gradient(135deg, var(--brand), var(--brand2));
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(37,99,235,.22);
+}
+
+.skins-page-shell {
+  padding-top: 28px;
+  padding-bottom: 20px;
+}
+
+.skins-panel {
+  display: none;
+}
+
+.skins-panel.active {
+  display: block;
+}
+
+.skins-grid {
+  display: grid;
+  gap: 34px 26px;
+}
+
+.my-skins-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.duo-skins-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.skin-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.skin-image-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.skin-image {
+  width: min(100%, 240px);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--surface-card);
+  box-shadow: var(--shadow-mid);
+  display: block;
+}
+
+.skin-name {
+  margin: 14px 0 0;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+@media (max-width: 900px) {
+  .my-skins-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .duo-skins-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .skin-image {
+    width: min(100%, 220px);
+  }
+}
+
+@media (max-width: 600px) {
+  .skins-grid {
+    gap: 26px 18px;
+  }
+
+  .my-skins-grid,
+  .duo-skins-grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  .skin-image {
+    width: min(100%, 210px);
+  }
+
+  .skin-name {
+    font-size: 16px;
+  }
+}
