@@ -23,7 +23,6 @@ function loadPopunderOnce() {
 function shouldShowAdNow() {
   const now = Date.now();
   const last = Number(localStorage.getItem("lastSkinPageAdTime") || 0);
-
   return !last || (now - last) > AD_INTERVAL;
 }
 
@@ -33,7 +32,7 @@ function markAdShown() {
 
 function triggerAd() {
   loadPopunderOnce();
-  window.open(SMARTLINK, "_blank", "noopener,noreferrer");
+  window.open(SMARTLINK, "_blank");
   markAdShown();
 }
 
@@ -41,6 +40,28 @@ function maybeRunAd() {
   if (shouldShowAdNow()) {
     triggerAd();
   }
+}
+
+function getFileNameFromPath(path, fallbackName = "skin") {
+  const cleanPath = String(path || "").split("?")[0].split("#")[0];
+  const parts = cleanPath.split("/");
+  return parts[parts.length - 1] || fallbackName;
+}
+
+function startDownload(url, fallbackName = "skin") {
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = getFileNameFromPath(url, fallbackName);
+  link.target = "_self";
+  link.rel = "noopener noreferrer";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+}
+
+function handleSkinTap(item) {
+  maybeRunAd();
+  startDownload(item.image, item.name);
 }
 
 const mySkins = [
@@ -110,106 +131,6 @@ const duoSkinsGrid = document.getElementById("duoSkinsGrid");
 const skinTabs = document.querySelectorAll(".skins-tab");
 const skinPanels = document.querySelectorAll(".skins-panel");
 
-function ensurePreviewStyles() {
-  if (document.getElementById("__skin_preview_style__")) return;
-
-  const style = document.createElement("style");
-  style.id = "__skin_preview_style__";
-  style.textContent = `
-    .skin-card {
-      cursor: pointer;
-    }
-
-    #__skin_preview__ {
-      position: fixed;
-      inset: 0;
-      z-index: 999999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.82);
-      backdrop-filter: blur(8px);
-      padding: 20px;
-    }
-
-    #__skin_preview__ .skin-preview-box {
-      position: relative;
-      width: min(560px, 100%);
-      background: #111;
-      border-radius: 22px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 20px 70px rgba(0,0,0,0.5);
-    }
-
-    #__skin_preview__ .skin-preview-image {
-      width: 100%;
-      display: block;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      background: #1a1a1a;
-    }
-
-    #__skin_preview__ .skin-preview-info {
-      padding: 14px 16px 18px;
-      color: #fff;
-    }
-
-    #__skin_preview__ .skin-preview-title {
-      margin: 0;
-      font-size: 18px;
-      font-weight: 800;
-    }
-
-    #__skin_preview__ .skin-preview-close {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      width: 42px;
-      height: 42px;
-      border: 0;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.55);
-      color: #fff;
-      font-size: 20px;
-      cursor: pointer;
-    }
-  `;
-  document.head.appendChild(style);
-}
-
-function closePreview() {
-  const preview = document.getElementById("__skin_preview__");
-  if (preview) preview.remove();
-}
-
-function openPreview(item) {
-  ensurePreviewStyles();
-  closePreview();
-
-  const preview = document.createElement("div");
-  preview.id = "__skin_preview__";
-
-  preview.innerHTML = `
-    <div class="skin-preview-box">
-      <button type="button" class="skin-preview-close">×</button>
-      <img src="${item.image}" alt="${item.name}" class="skin-preview-image">
-      <div class="skin-preview-info">
-        <h3 class="skin-preview-title">${item.name}</h3>
-      </div>
-    </div>
-  `;
-
-  document.body.appendChild(preview);
-
-  const closeBtn = preview.querySelector(".skin-preview-close");
-  closeBtn.addEventListener("click", closePreview);
-
-  preview.addEventListener("click", (e) => {
-    if (e.target === preview) closePreview();
-  });
-}
-
 function createSkinCard(item) {
   const card = document.createElement("article");
   card.className = "skin-card";
@@ -222,8 +143,7 @@ function createSkinCard(item) {
   `;
 
   card.addEventListener("click", () => {
-    maybeRunAd();
-    openPreview(item);
+    handleSkinTap(item);
   });
 
   return card;
@@ -236,14 +156,13 @@ function renderSkinList(list, container) {
 
   list.forEach((item) => {
     if (!item.image) return;
-    const card = createSkinCard(item);
-    container.appendChild(card);
+    container.appendChild(createSkinCard(item));
   });
 }
 
 function setupTabs() {
   skinTabs.forEach((tab) => {
-    tab.addEventListener("click", function () {
+    tab.addEventListener("click", () => {
       const targetPanelId = tab.getAttribute("data-panel");
 
       skinTabs.forEach((btn) => btn.classList.remove("active"));
