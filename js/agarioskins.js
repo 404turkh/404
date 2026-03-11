@@ -1,71 +1,70 @@
 const mySkins = [
   {
     name: "5gokturk",
-    image: "agarskıns/5gok.png"
+    image: "agarskins/5gok.png"
   },
   {
     name: "5gokturk",
-    image: "agarskıns/5g.png"
+    image: "agarskins/5g.png"
   },
   {
     name: "5gokturk",
-    image: "agarskıns/5g1.png"
+    image: "agarskins/5g1.png"
   },
   {
     name: "morfin",
-    image: "agarskıns/5g2.png"
+    image: "agarskins/5g2.png"
   },
   {
     name: "lezy",
-    image: "images/skin5.png"
+    image: "agarskins/skin5.png"
   },
   {
     name: "rocky",
-    image: "agarskıns/IMG_2070.png"
+    image: "agarskins/IMG_2070.png"
   },
   {
     name: "jery",
-    image: "agarskıns/IMG_2106.jpeg"
+    image: "agarskins/IMG_2106.jpeg"
   },
   {
     name: "meowDe",
-    image: "agarskıns/IMG_2106.jpeg"
+    image: "agarskins/IMG_2106.jpeg"
   },
   {
-    name:"meowDe",,
-    image: "agarskıns/IMG_2108.jpeg"
+    name: "meowDe",
+    image: "agarskins/IMG_2108.jpeg"
   },
   {
     name: "janq",
-    image: ""
-
+    image: "agarskins/IMG_2109.jpeg"
   }
 ];
 
 const duoSkins = [
   {
     name: "deasny",
-    image: "agarskıns/IMG_1635.jpeg"
+    image: "agarskins/IMG_1635.jpeg"
   },
   {
     name: "deasny",
-    image: "agarskıns/IMG_2077.jpeg"
+    image: "agarskins/IMG_2077.jpeg"
   },
   {
     name: "ece",
-    image: "agarskıns/IMG_2086.jpeg"
+    image: "agarskins/IMG_2086.jpeg"
   },
   {
     name: "ece",
-    image: "agarskıns/IMG_2087.jpeg"
+    image: "agarskins/IMG_2087.jpeg"
   },
   {
     name: "kng",
-    image: "agarskıns/IMG_2084.jpeg"
+    image: "agarskins/IMG_2084.jpeg"
   },
   {
     name: "kng",
-    image: "agarskıns/IMG_2085.jpeg"
+    image: "agarskins/IMG_2085.jpeg"
   }
 ];
 
@@ -89,9 +88,12 @@ function createSkinCard(item) {
 }
 
 function renderSkinList(list, container) {
+  if (!container) return;
+
   container.innerHTML = "";
 
   list.forEach((item) => {
+    if (!item.image) return;
     const card = createSkinCard(item);
     container.appendChild(card);
   });
@@ -106,7 +108,11 @@ function setupTabs() {
       skinPanels.forEach((panel) => panel.classList.remove("active"));
 
       tab.classList.add("active");
-      document.getElementById(targetPanelId).classList.add("active");
+
+      const targetPanel = document.getElementById(targetPanelId);
+      if (targetPanel) {
+        targetPanel.classList.add("active");
+      }
     });
   });
 }
