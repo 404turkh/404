@@ -25,7 +25,7 @@ const mySkins = [
   },
   {
     name: "jery",
-    image: "agarskins/IMG_2106.jpeg"
+    image: "agarskins/IMG_2134.jpeg"
   },
   {
     name: "meowDe",
