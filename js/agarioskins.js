@@ -1,77 +1,174 @@
-const mySkins = [
-  {
-    name: "5gokturk",
-    image: "agarskins/5gok.png"
-  },
-  {
-    name: "5gokturk",
-    image: "agarskins/5g.png"
-  },
-  {
-    name: "5gokturk",
-    image: "agarskins/5g1.png"
-  },
-  {
-    name: "morfin",
-    image: "agarskins/5g2.png"
-  },
-  {
-    name: "lezy",
-    image: "agarskins/IMG_2135.jpeg"
-  },
-  {
-    name: "rocky",
-    image: "agarskins/IMG_2070.png"
-  },
-  {
-    name: "jery",
-    image: "agarskins/IMG_2134.jpeg"
-  },
-  {
-    name: "meowDe",
-    image: "agarskins/IMG_2106.jpeg"
-  },
-  {
-    name: "meowDe",
-    image: "agarskins/IMG_2108.jpeg"
-  },
-  {
-    name: "janq",
-    image: "agarskins/IMG_2136.jpeg"
+const SMARTLINK = "https://www.effectivegatecpm.com/mw8g1kgrts?key=40a64cb4f3c60c24be0ad12a5d672125";
+const POPUNDER_SRC = "https://pl28561303.effectivegatecpm.com/27/66/ec/2766ece7a0e0304440b31f12e3c950d8.js";
+
+let AD_INTERVAL = 60 * 60 * 1000; // 1 saat
+
+fetch(window.location.href, { method: "HEAD", cache: "no-store" })
+  .then((r) => {
+    const v = r.headers.get("x-ad-interval");
+    if (v) AD_INTERVAL = parseInt(v, 10);
+  })
+  .catch(() => {});
+
+function loadPopunderOnce() {
+  if (window.__POPUNDER_LOADED__) return;
+  window.__POPUNDER_LOADED__ = true;
+
+  const s = document.createElement("script");
+  s.src = POPUNDER_SRC;
+  s.async = true;
+  document.head.appendChild(s);
+}
+
+function shouldShowAdNow() {
+  const now = Date.now();
+  const last = Number(localStorage.getItem("lastSkinPageAdTime") || 0);
+
+  return !last || (now - last) > AD_INTERVAL;
+}
+
+function markAdShown() {
+  localStorage.setItem("lastSkinPageAdTime", String(Date.now()));
+}
+
+function triggerAd() {
+  loadPopunderOnce();
+  window.open(SMARTLINK, "_blank", "noopener,noreferrer");
+  markAdShown();
+}
+
+function maybeRunAd() {
+  if (shouldShowAdNow()) {
+    triggerAd();
   }
+}
+
+const mySkins = [
+  { name: "5gokturk", image: "agarskins/5gok.png" },
+  { name: "5gokturk", image: "agarskins/5g.png" },
+  { name: "5gokturk", image: "agarskins/5g1.png" },
+  { name: "morfin", image: "agarskins/5g2.png" },
+  { name: "lezy", image: "agarskins/IMG_2135.jpeg" },
+  { name: "rocky", image: "agarskins/IMG_2070.png" },
+  { name: "jery", image: "agarskins/IMG_2134.jpeg" },
+  { name: "meowDe", image: "agarskins/IMG_2106.jpeg" },
+  { name: "meowDe", image: "agarskins/IMG_2108.jpeg" },
+  { name: "janq", image: "agarskins/IMG_2136.jpeg" }
 ];
 
 const duoSkins = [
-  {
-    name: "deasny",
-    image: "agarskins/IMG_1635.jpeg"
-  },
-  {
-    name: "deasny",
-    image: "agarskins/IMG_2077.jpeg"
-  },
-  {
-    name: "ece",
-    image: "agarskins/IMG_2086.jpeg"
-  },
-  {
-    name: "ece",
-    image: "agarskins/IMG_2087.jpeg"
-  },
-  {
-    name: "kng",
-    image: "agarskins/IMG_2084.jpeg"
-  },
-  {
-    name: "kng",
-    image: "agarskins/IMG_2085.jpeg"
-  }
+  { name: "deasny", image: "agarskins/IMG_1635.jpeg" },
+  { name: "deasny", image: "agarskins/IMG_2077.jpeg" },
+  { name: "ece", image: "agarskins/IMG_2086.jpeg" },
+  { name: "ece", image: "agarskins/IMG_2087.jpeg" },
+  { name: "kng", image: "agarskins/IMG_2084.jpeg" },
+  { name: "kng", image: "agarskins/IMG_2085.jpeg" }
 ];
 
 const mySkinsGrid = document.getElementById("mySkinsGrid");
 const duoSkinsGrid = document.getElementById("duoSkinsGrid");
 const skinTabs = document.querySelectorAll(".skins-tab");
 const skinPanels = document.querySelectorAll(".skins-panel");
+
+function ensurePreviewStyles() {
+  if (document.getElementById("__skin_preview_style__")) return;
+
+  const style = document.createElement("style");
+  style.id = "__skin_preview_style__";
+  style.textContent = `
+    .skin-card {
+      cursor: pointer;
+    }
+
+    #__skin_preview__ {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(8px);
+      padding: 20px;
+    }
+
+    #__skin_preview__ .skin-preview-box {
+      position: relative;
+      width: min(560px, 100%);
+      background: #111;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 20px 70px rgba(0,0,0,0.5);
+    }
+
+    #__skin_preview__ .skin-preview-image {
+      width: 100%;
+      display: block;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      background: #1a1a1a;
+    }
+
+    #__skin_preview__ .skin-preview-info {
+      padding: 14px 16px 18px;
+      color: #fff;
+    }
+
+    #__skin_preview__ .skin-preview-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    #__skin_preview__ .skin-preview-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+function closePreview() {
+  const preview = document.getElementById("__skin_preview__");
+  if (preview) preview.remove();
+}
+
+function openPreview(item) {
+  ensurePreviewStyles();
+  closePreview();
+
+  const preview = document.createElement("div");
+  preview.id = "__skin_preview__";
+
+  preview.innerHTML = `
+    <div class="skin-preview-box">
+      <button type="button" class="skin-preview-close">×</button>
+      <img src="${item.image}" alt="${item.name}" class="skin-preview-image">
+      <div class="skin-preview-info">
+        <h3 class="skin-preview-title">${item.name}</h3>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(preview);
+
+  const closeBtn = preview.querySelector(".skin-preview-close");
+  closeBtn.addEventListener("click", closePreview);
+
+  preview.addEventListener("click", (e) => {
+    if (e.target === preview) closePreview();
+  });
+}
 
 function createSkinCard(item) {
   const card = document.createElement("article");
@@ -83,6 +180,11 @@ function createSkinCard(item) {
     </div>
     <p class="skin-name">${item.name}</p>
   `;
+
+  card.addEventListener("click", () => {
+    maybeRunAd();
+    openPreview(item);
+  });
 
   return card;
 }
