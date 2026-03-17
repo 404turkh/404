@@ -76,6 +76,10 @@ const mySkins = [
   { name: "5goktur", image: "agarskins/gok5.PNG" },
   { name: "5goktur", image: "agarskins/gok6.jpg" },
   { name: "5goktur", image: "agarskins/gok7.PNG" },
+  { name: "5goktur", image: "agarskins/gok8.jpg" },
+  { name: "5goktur", image: "agarskins/gok9.jpg" },
+  { name: "5goktur", image: "agarskins/gok10.jpg" },
+  { name: "5goktur", image: "agarskins/gok11.jpg" },
 
   { name: "morfin", image: "agarskins/5g2.png" },
   { name: "lezy", image: "agarskins/IMG_2135.jpeg" },
