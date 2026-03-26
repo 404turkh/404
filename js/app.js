@@ -210,8 +210,13 @@ function openVerifyModal(targetUrl) {
   const vgDot2 = document.getElementById("vgDot2");
   const vgDot3 = document.getElementById("vgDot3");
 
-  function setStatus(msg) { statusText.textContent = msg; }
-  function completedCount() { return (state.ig ? 1 : 0) + (state.yt ? 1 : 0) + (state.tg ? 1 : 0); }
+  function setStatus(msg) {
+    statusText.textContent = msg;
+  }
+
+  function completedCount() {
+    return (state.ig ? 1 : 0) + (state.yt ? 1 : 0) + (state.tg ? 1 : 0);
+  }
 
   function updateProgress() {
     const c = completedCount();
@@ -237,9 +242,16 @@ function openVerifyModal(targetUrl) {
     const step = state.pending;
     state.pending = null;
 
-    if (step === "ig" && !state.ig) { state.ig = true; markDone(igBtn, igBadge); }
-    else if (step === "yt" && !state.yt) { state.yt = true; markDone(ytBtn, ytBadge); }
-    else if (step === "tg" && !state.tg) { state.tg = true; markDone(tgBtn, tgBadge); }
+    if (step === "ig" && !state.ig) {
+      state.ig = true;
+      markDone(igBtn, igBadge);
+    } else if (step === "yt" && !state.yt) {
+      state.yt = true;
+      markDone(ytBtn, ytBadge);
+    } else if (step === "tg" && !state.tg) {
+      state.tg = true;
+      markDone(tgBtn, tgBadge);
+    }
 
     updateProgress();
 
@@ -257,7 +269,9 @@ function openVerifyModal(targetUrl) {
   }
 
   const onFocus = () => handleReturn();
-  const onVis = () => { if (!document.hidden) handleReturn(); };
+  const onVis = () => {
+    if (!document.hidden) handleReturn();
+  };
 
   window.addEventListener("focus", onFocus);
   document.addEventListener("visibilitychange", onVis);
@@ -294,13 +308,9 @@ function openVerifyModal(targetUrl) {
 }
 
 const categoryMeta = {
-  list1: {
-    title: "KSign",
-    desc: "Browse KSign certificates, profiles, and related install options."
-  },
   list2: {
     title: "ESign",
-    desc: "Browse ESign certificates, profiles, and signing resources."
+    desc: "Browse ESign certificates, profiles, signing resources, and DNS profiles."
   },
   list3: {
     title: "Agario Modes",
@@ -317,86 +327,40 @@ const categoryMeta = {
 };
 
 const data = {
-  list1: [
+  list2: [
     {logo:"snd.png",name:"Dns Profile",desc:"",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1/byharambro.mobileconfig"},
     {logo:"snd.png",name:"Dns Profile",desc:"Config",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1/bypassrevokedns.mobileconfig"},
-    {logo:"ngisk.png",name:"KSign✅",desc:"National Oilwell Varco, Inc.",url:"https://api.khoindvn.io.vn/UM2Mcz"},
-    {logo:"ngisk.png",name:"KSign",desc:"VIETNAM AIRLINES JSC",url:"https://api.khoindvn.io.vn/enw3mG"},
-    {logo:"ngisk.png",name:"KSign",desc:"PowerChina International Group Limited",url:"https://api.khoindvn.io.vn/03zH0o"},
-    {logo:"ngisk.png",name:"KSign PowerChina",desc:"PowerChina International Group Limited",url:"https://api.khoindvn.io.vn/03zH0o"},
-    {logo:"ngisk.png",name:"KSign PowerChina 1",desc:"PowerChina International Group Limited",url:"https://api.khoindvn.io.vn/QdVVh3"},
-    {logo:"ngisk.png",name:"KSign PowerChina 2",desc:"PowerChina International Group Limited",url:"https://api.khoindvn.io.vn/t1UK1D"},
-    {logo:"ngisk.png",name:"KSign PowerChina 3",desc:"PowerChina International Group Limited",url:"https://api.khoindvn.io.vn/NU8PP6"},
-    {logo:"ngisk.png",name:"KSign",desc:"Qingdao Rural Commercial Bank Co., Ltd",url:"https://api.khoindvn.eu.org/XSCvQT"},
-    {logo:"ngisk.png",name:"KSign",desc:"Commission on Elections",url:"https://api.khoindvn.io.vn/g65UJy"},
-    {logo:"ngisk.png",name:"KSign Com V1",desc:"Commission on Elections",url:"https://api.khoindvn.io.vn/ZsgCVX"},
-    {logo:"ngisk.png",name:"KSign Com V2",desc:"Commission on Elections",url:"https://api.khoindvn.io.vn/VNNlkL"},
-    {logo:"ngisk.png",name:"KSign",desc:"Wasu Media & Network Co",url:"https://api.khoindvn.io.vn/9VDZ4Y"},
-    {logo:"ngisk.png",name:"KSign",desc:"Luoyang Postal Administration",url:"https://api.khoindvn.io.vn/h5YrG1"},
-    {logo:"ngisk.png",name:"KSign",desc:"Etisalat - Emirates Telecommunications Corporation",url:"https://api.khoindvn.io.vn/TsTFIu"},
-    {logo:"ngisk.png",name:"KSign",desc:"China National Heavy Duty Truck Group Co., Ltd",url:"https://api.khoindvn.io.vn/IUurbX"},
-    {logo:"ngisk.png",name:"KSign",desc:"Guangzhou Huahan Educational & Technology Co., Ltd.",url:"https://api.khoindvn.io.vn/03zH0o"},
-    {logo:"ngisk.png",name:"KSign",desc:"China Telecommunications Corporation",url:"https://api.khoindvn.io.vn/5PBonm"},
-    {logo:"ngisk.png",name:"KSign",desc:"Tianjin University of Commerce",url:"https://api.khoindvn.io.vn/1H9iee"},
-    {logo:"ngisk.png",name:"KSign",desc:"VIETTEL GROUP",url:"https://api.khoindvn.io.vn/qYiNnB"},
-    {logo:"ngisk.png",name:"KSign",desc:"CHIBA INSTITUTE OF TECHNOLOGY",url:"https://api.khoindvn.io.vn/xwgru5"},
-    {logo:"ngisk.png",name:"KSign ChiBa V1",desc:"CHIBA INSTITUTE OF TECHNOLOGY",url:"https://api.khoindvn.io.vn/KYD1nK"},
-    {logo:"ngisk.png",name:"KSign ChiBa V2",desc:"CHIBA INSTITUTE OF TECHNOLOGY",url:"https://api.khoindvn.io.vn/EIpxft"},
-    {logo:"ngisk.png",name:"KSign ChiBa V3",desc:"CHIBA INSTITUTE OF TECHNOLOGY",url:"https://api.khoindvn.io.vn/ZNciX8"},
-    {logo:"ngisk.png",name:"KSign ChiBa V4",desc:"CHIBA INSTITUTE OF TECHNOLOGY",url:"https://api.khoindvn.io.vn/nBQF8h"},
-    {logo:"ngisk.png",name:"KSign",desc:"VIETNAM JOINT STOCK COMMERCIAL BANK FOR INDUSTRY AND TRADE",url:"https://api.khoindvn.io.vn/5dujHz"},
-    {logo:"ngisk.png",name:"KSign VN V1",desc:"VIETNAM JOINT STOCK COMMERCIAL BANK FOR INDUSTRY AND TRADE",url:"https://api.khoindvn.io.vn/hZ8MlI"},
-    {logo:"ngisk.png",name:"KSign VN V2",desc:"VIETNAM JOINT STOCK COMMERCIAL BANK FOR INDUSTRY AND TRADE",url:"https://api.khoindvn.io.vn/Fdty3X"},
-    {logo:"ngisk.png",name:"KSign VN V3",desc:"VIETNAM JOINT STOCK COMMERCIAL BANK FOR INDUSTRY AND TRADE",url:"https://api.khoindvn.io.vn/AK7usE"},
-    {logo:"ngisk.png",name:"KSign VN V4",desc:"VIETNAM JOINT STOCK COMMERCIAL BANK FOR INDUSTRY AND TRADE",url:"https://api.khoindvn.io.vn/oIV0oN"},
-    {logo:"ngisk.png",name:"KSign",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/6DNLtD"},
-    {logo:"ngisk.png",name:"KSign GLOBAL V1",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/j7XAya"},
-    {logo:"ngisk.png",name:"KSign GLOBAL V2",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/qNkRtG"},
-    {logo:"ngisk.png",name:"KSign GLOBAL V3",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/mTt9ip"},
-    {logo:"ngisk.png",name:"KSign GLOBAL V4",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/RX7IAf"},
-    {logo:"ngisk.png",name:"KSign GLOBAL V5",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/tGeKc0"},
-    {logo:"ngisk.png",name:"KSign GLOBAL V6",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/Deq7RD"},
-    {logo:"ngisk.png",name:"KSign GLOBAL V7",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/kcvpWe"}
-  ],
-  list2: [
     {logo:"tw.png",name:"esing",desc:"Certificate",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1/ESignCert.zip"},
-    {logo:"gnise.png",name:"ESign✅",desc:"National Oilwell Varco, Inc.",url:"https://api.khoindvn.io.vn/RoAzoJ"},
-    {logo:"gnise.png",name:"ESign",desc:"VIETNAM AIRLINES JSC",url:"https://api.khoindvn.io.vn/mJoVMn"},
+    {logo:"gnise.png",name:"ESign",desc:"National Oilwell Varco, Inc.",url:"https://api.khoindvn.io.vn/l5zzBs"},
+    {logo:"gnise.png",name:"ESign",desc:"VIETNAM AIRLINES JSC",url:"https://api.khoindvn.io.vn/l0drnJ"},
     {logo:"gnise.png",name:"ESign",desc:"PowerChina International Group Limited",url:"https://api.khoindvn.io.vn/IDcW4P"},
-    {logo:"gnise.png",name:"ESign PowerChina",desc:"PowerChina International Group Limited",url:"https://api.khoindvn.io.vn/NvH0ZF"},
-    {logo:"gnise.png",name:"ESign PowerChina 1",desc:"PowerChina International Group Limited",url:"https://api.khoindvn.io.vn/GKJa03"},
-    {logo:"gnise.png",name:"ESign PowerChina 2",desc:"PowerChina International Group Limited",url:"https://api.khoindvn.io.vn/lYSU81"},
-    {logo:"gnise.png",name:"ESign PowerChina 3",desc:"PowerChina International Group Limited",url:"https://api.khoindvn.io.vn/bzAdnw"},
-    {logo:"gnise.png",name:"ESign",desc:"Qingdao Rural Commercial Bank Co., Ltd",url:"https://api.khoindvn.eu.org/KXcveB"},
-    {logo:"gnise.png",name:"ESign",desc:"Commission on Elections",url:"https://api.khoindvn.io.vn/jAbzrt"},
-    {logo:"gnise.png",name:"ESign Com V1",desc:"Commission on Elections",url:"https://api.khoindvn.io.vn/RzkRFk"},
-    {logo:"gnise.png",name:"ESign Com V2",desc:"Commission on Elections",url:"https://api.khoindvn.io.vn/oC0s5H"},
-    {logo:"gnise.png",name:"ESign",desc:"Luoyang Postal Administration",url:"https://api.khoindvn.io.vn/ST2vo0"},
-    {logo:"gnise.png",name:"ESign",desc:"Wasu Media & Network Co., Ltd",url:"https://api.khoindvn.io.vn/CbhJOR"},
-    {logo:"gnise.png",name:"ESign",desc:"Etisalat - Emirates Telecommunications Corporation",url:"https://api.khoindvn.io.vn/Zxycmb"},
-    {logo:"gnise.png",name:"ESign",desc:"China National Heavy Duty Truck Group Co., Ltd.",url:"https://api.khoindvn.io.vn/11jtJ7"},
-    {logo:"gnise.png",name:"ESign",desc:"Guangzhou Huahan Educational & Technology Co., Ltd",url:"https://api.khoindvn.io.vn/11jtJ7"},
-    {logo:"gnise.png",name:"ESign",desc:"China Telecommunications Corporation",url:"https://api.khoindvn.io.vn/JJW6Nj"},
-    {logo:"gnise.png",name:"ESign",desc:"Tianjin University of Commerce",url:"https://api.khoindvn.io.vn/6xAzUM"},
-    {logo:"gnise.png",name:"ESign",desc:"VIETTEL GROUP",url:"https://api.khoindvn.io.vn/Sco2A2"},
-    {logo:"gnise.png",name:"ESign",desc:"CHIBA INSTITUTE OF TECHNOLOGY",url:"https://api.khoindvn.io.vn/Q9sxJb"},
-    {logo:"gnise.png",name:"ESign ChiBa V1",desc:"CHIBA INSTITUTE OF TECHNOLOGY",url:"https://api.khoindvn.io.vn/Bhqw0c"},
-    {logo:"gnise.png",name:"ESign ChiBa V2",desc:"CHIBA INSTITUTE OF TECHNOLOGY",url:"https://api.khoindvn.io.vn/9UqTrd"},
-    {logo:"gnise.png",name:"ESign ChiBa V3",desc:"CHIBA INSTITUTE OF TECHNOLOGY",url:"https://api.khoindvn.io.vn/BcUSW0"},
-    {logo:"gnise.png",name:"ESign ChiBa V4",desc:"CHIBA INSTITUTE OF TECHNOLOGY",url:"https://api.khoindvn.io.vn/4jftNL"},
-    {logo:"gnise.png",name:"ESign",desc:"VIETNAM JOINT STOCK COMMERCIAL BANK FOR INDUSTRY AND TRADE",url:"https://api.khoindvn.io.vn/z4nsG3"},
-    {logo:"gnise.png",name:"ESign VN V1",desc:"VIETNAM JOINT STOCK COMMERCIAL BANK FOR INDUSTRY AND TRADE",url:"https://api.khoindvn.io.vn/hMU3PR"},
+    {logo:"gnise.png",name:"ESign PowerChina",desc:"PowerChina International Group Limited",url:"https://api.khoindvn.io.vn/HdZnCj"},
+    {logo:"gnise.png",name:"ESign PowerChina V1",desc:"PowerChina International Group Limited",url:"https://api.khoindvn.io.vn/2J6MJz"},
+    {logo:"gnise.png",name:"ESign PowerChina V2",desc:"PowerChina International Group Limited",url:"https://api.khoindvn.io.vn/aVc2Gk"},
+    {logo:"gnise.png",name:"ESign PowerChina V3",desc:"PowerChina International Group Limited",url:"https://api.khoindvn.io.vn/UuAl5i"},
+    {logo:"gnise.png",name:"ESign PowerChina V4",desc:"PowerChina International Group Limited",url:"https://api.khoindvn.io.vn/mKq38w"},
+    {logo:"gnise.png",name:"ESign",desc:"Qingdao Rural Commercial Bank Co., Ltd",url:"https://api.khoindvn.io.vn/U7fGrl"},
+    {logo:"gnise.png",name:"ESign",desc:"Commission on Elections",url:"https://api.khoindvn.io.vn/PnrQnK"},
+    {logo:"gnise.png",name:"ESign Com V1",desc:"Commission on Elections",url:"https://api.khoindvn.io.vn/99yRgN"},
+    {logo:"gnise.png",name:"ESign Com V2",desc:"Commission on Elections",url:"https://api.khoindvn.io.vn/FQCCpn"},
+    {logo:"gnise.png",name:"ESign",desc:"Luoyang Postal Administration",url:"https://api.khoindvn.io.vn/j7ugho"},
+    {logo:"gnise.png",name:"ESign",desc:"China National Heavy Duty Truck Group Co., Ltd.",url:"https://api.khoindvn.io.vn/bYA0i6"},
+    {logo:"gnise.png",name:"ESign",desc:"China Telecommunications Corporation",url:"https://api.khoindvn.io.vn/cTiFFB"},
+    {logo:"gnise.png",name:"ESign",desc:"CHIBA INSTITUTE OF TECHNOLOGY",url:"https://api.khoindvn.io.vn/TPaVIt"},
+    {logo:"gnise.png",name:"ESign ChiBa V1",desc:"CHIBA INSTITUTE OF TECHNOLOGY",url:"https://api.khoindvn.io.vn/xSBzLu"},
+    {logo:"gnise.png",name:"ESign ChiBa V2",desc:"CHIBA INSTITUTE OF TECHNOLOGY",url:"https://api.khoindvn.io.vn/snaMHN"},
+    {logo:"gnise.png",name:"ESign ChiBa V3",desc:"CHIBA INSTITUTE OF TECHNOLOGY",url:"https://api.khoindvn.io.vn/2JriFT"},
+    {logo:"gnise.png",name:"ESign ChiBa V4",desc:"CHIBA INSTITUTE OF TECHNOLOGY",url:"https://api.khoindvn.io.vn/YvtlUy"},
+    {logo:"gnise.png",name:"ESign",desc:"VIETNAM JOINT STOCK COMMERCIAL BANK FOR INDUSTRY AND TRADE",url:"https://api.khoindvn.io.vn/4h9whC"},
+    {logo:"gnise.png",name:"ESign VN V1",desc:"VIETNAM JOINT STOCK COMMERCIAL BANK FOR INDUSTRY AND TRADE",url:"https://api.khoindvn.io.vn/pciQGt"},
     {logo:"gnise.png",name:"ESign VN V2",desc:"VIETNAM JOINT STOCK COMMERCIAL BANK FOR INDUSTRY AND TRADE",url:"https://api.khoindvn.io.vn/OBr8Zi"},
-    {logo:"gnise.png",name:"ESign VN V3",desc:"VIETNAM JOINT STOCK COMMERCIAL BANK FOR INDUSTRY AND TRADE",url:"https://api.khoindvn.io.vn/gegf9d"},
-    {logo:"gnise.png",name:"ESign VN V4",desc:"VIETNAM JOINT STOCK COMMERCIAL BANK FOR INDUSTRY AND TRADE",url:"https://api.khoindvn.io.vn/a1Gr0d"},
-    {logo:"gnise.png",name:"ESign",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/2nf4UO"},
-    {logo:"gnise.png",name:"ESign GLOBAL V1",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/j6HQG8"},
-    {logo:"gnise.png",name:"ESign GLOBAL V2",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/hvcTb2"},
-    {logo:"gnise.png",name:"ESign GLOBAL V3",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/bJV2fn"},
-    {logo:"gnise.png",name:"ESign GLOBAL V4",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/QQYC0K"},
-    {logo:"gnise.png",name:"ESign GLOBAL V5",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/ylpuYQ"},
-    {logo:"gnise.png",name:"ESign GLOBAL V6",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/vnAa35"},
-    {logo:"gnise.png",name:"ESign GLOBAL V7",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/qYW0nK"}
+    {logo:"gnise.png",name:"ESign",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/aKk6vi"},
+    {logo:"gnise.png",name:"ESign GLOBAL V1",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/vGoIMF"},
+    {logo:"gnise.png",name:"ESign GLOBAL V2",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/qTfnZT"},
+    {logo:"gnise.png",name:"ESign GLOBAL V3",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/PVPh70"},
+    {logo:"gnise.png",name:"ESign GLOBAL V4",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/WJzjeS"},
+    {logo:"gnise.png",name:"ESign GLOBAL V6",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/ZMzWGe"},
+    {logo:"gnise.png",name:"ESign GLOBAL V7",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/hRFlJo"}
   ],
   list3: [
     {logo:"raga.png",name:"Agar.io",desc:"myu+shark mod 26.4.0",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.myu+shark.ipa"},
@@ -434,7 +398,7 @@ const data = {
 
 function getButtonText(list, index) {
   if (list === "list3" || list === "list4" || list === "list5") return "DOWNLOAD";
-  if ((list === "list1" || list === "list2") && index === 0) return "DOWNLOAD";
+  if (list === "list2" && (index === 0 || index === 1 || index === 2)) return "DOWNLOAD";
   return "INSTALL";
 }
 
@@ -522,5 +486,5 @@ function initTabs() {
 
 document.addEventListener("DOMContentLoaded", () => {
   initTabs();
-  showList("list1");
+  showList("list2");
 });
