@@ -330,6 +330,8 @@ const data = {
   list2: [
     {logo:"snd.png",name:"Dns Profile",desc:"",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1/byharambro.mobileconfig"},
     {logo:"snd.png",name:"Dns Profile",desc:"Config",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1/bypassrevokedns.mobileconfig"},
+
+    {logo:"gnise.png",name:"ESign ✅",desc:"XL AXIATA, PT TBK",url:"https://api.khoindvn.eu.org/oxe83o"},
     {logo:"gnise.png",name:"ESign",desc:"BOC International (China) Limited",url:"https://api.khoindvn.io.vn/XHJQcD"},
     {logo:"gnise.png",name:"ESign BOC V1",desc:"BOC International (China) Limited",url:"https://api.khoindvn.io.vn/XPhn8L"},
     {logo:"gnise.png",name:"ESign BOC V2",desc:"BOC International (China) Limited",url:"https://api.khoindvn.io.vn/j6HS4k"},
