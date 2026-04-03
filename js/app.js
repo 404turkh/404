@@ -382,10 +382,13 @@ const data = {
     {logo:"scrt.PNG",name:"Bot Script",desc:"Free bot script that works together with Web Delta Agario.",url:"https://raw.githubusercontent.com/404turkh/404/refs/heads/main/js/hrm.user.js"}
   ],
   list4: [
+    {logo:"hil.JPEG",name:"Hill Climb",desc:"Unlimited Everything 💎💰",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/Hill.Climb.ipa"},
     {logo:"mn.png",name:"Minecraft",desc:"Build, explore, and survive in a fully open world. Gather resources, craft tools, and create anything you imagine",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/Minecraft.ipa"},
     {logo:"go.png",name:"Geometry",desc:"Jump and fly your way through danger in this rhythm-based action platformer",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/Geometry.ipa"}
   ],
   list5: [
+    {logo:"cap.JPEG",name:"Capcut",desc:"Pro Free",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/CapCut.Pro.ipa"},
+    {logo:"pcs.PNG",name:"Picsart",desc:"Unlocked Premium Free",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/Picsart.ipa"},
     {logo:"trol.png",name:"TrollInstallerX",desc:"Universal TrollStore installer. Extremely reliable and fast 1.0.3",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/TrollInstallerX.ipa"},
     {logo:"ins.png",name:"Instagram",desc:"Regram B23 Cracked 369.0.0",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/Instagram.ipa"},
     {logo:"ytb.png",name:"YouTube",desc:"YTLite + Youpip + YouQuality Premium free 20.12.4",url:"https://github.com/404turkh/404/releases/download/%E2%80%94%CD%9E%CD%9F%CD%9E%E2%98%85/YouTube.ipa"},
