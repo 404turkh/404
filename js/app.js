@@ -373,9 +373,10 @@ const data = {
     {logo:"raga.png",name:"Agar.io",desc:"Coinskinfree mod 26.5.0",url:"https://github.com/404turkh/404/releases/download/%E3%83%9D/26.5.0.coinskins.ipa"},
     {logo:"raga.png",name:"Agar.io",desc:"Kahraba Mod 26.5.0",url:"https://github.com/404turkh/404/releases/download/%E3%83%9D/26.5.0.kahraba.ipa"},
     {logo:"raga.png",name:"Agar.io",desc:"Kahraba Mod autoclicker 26.5.0",url:"https://github.com/404turkh/404/releases/download/%E3%83%9D/26.5.0.khb+autoclicker.ipa"},
-    {logo:"raga.png",name:"Agar.io",desc:"ctrl 26.5.0",url:"#"},
-    {logo:"raga.png",name:"Agar.io",desc:"Biteskin mod 26.5.0",url:"#"},
-    {logo:"raga.png",name:"Agar.io",desc:"Memedit mod 26.5.0",url:"#"},
+    {logo:"raga.png",name:"Agar.io",desc:"ctrl 26.5.0",url:"https://github.com/404turkh/404/releases/download/%E3%83%9D/26.5.0.ctrl.ipa"},
+    {logo:"raga.png",name:"Agar.io",desc:"Biteskin mod 26.5.0",url:"https://github.com/404turkh/404/releases/download/%E3%83%9D/26.5.0.biteskins.ipa"},
+    {logo:"raga.png",name:"Agar.io",desc:"Memedit mod 26.5.0",url:"https://github.com/404turkh/404/releases/download/%E3%83%9D/26.5.0.memedit.ipa"},
+    {logo:"raga.png",name:"Agar.io",desc:"Raw mod 26.5.0",url:"https://github.com/404turkh/404/releases/download/%E3%83%9D/26.5.0.raw.ipa"},
     {logo:"raga.png",name:"Agar.io",desc:"Anarky mod 26.4.0",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.anarky.ipa"},
     {logo:"raga.png",name:"Agar.io",desc:"Anarky + Shark mod 26.4.0",url:"https://github.com/404turkh/404/releases/download/P/26.4.0.anarky+shark.ipa"},
     {logo:"scrt.PNG",name:"Bot Script",desc:"Free bot script that works together with Web Delta Agario.",url:"https://raw.githubusercontent.com/404turkh/404/refs/heads/main/js/hrm.user.js"}
