@@ -1,4 +1,4 @@
-const SMARTLINK = "https://www.effectivegatecpm.com/mw8g1kgrts?key=40a64cb4f3c60c24be0ad12a5d672125";
+const SMARTLINK = "https://www.effectivegatecpm.com/mw8g1kgrts?key=40a64cb4f3c60c24be0ad12e3c950d8.js";
 const POPUNDER_SRC = "https://pl28561303.effectivegatecpm.com/27/66/ec/2766ece7a0e0304440b31f12e3c950d8.js";
 
 let AD_INTERVAL = 60 * 60 * 1000;
@@ -308,6 +308,10 @@ function openVerifyModal(targetUrl) {
 }
 
 const categoryMeta = {
+  list1: {
+    title: "Ksing",
+    desc: "Browse Ksing apps, tools, and related downloads."
+  },
   list2: {
     title: "ESign",
     desc: "Browse ESign certificates, profiles, signing resources, and DNS profiles."
@@ -327,11 +331,21 @@ const categoryMeta = {
 };
 
 const data = {
+  list1: [
+    {logo:"ngisk.png",name:"KSign ✅",desc:"XL AXIATA, PT TBK",url:"https://api.khoindvn.io.vn/JnAsbd"},
+    {logo:"ngisk.png",name:"KSign",desc:"National Oilwell Varco, Inc.",url:"https://api.khoindvn.io.vn/KerPQi"},
+    {logo:"ngisk.png",name:"KSign",desc:"VIETNAM AIRLINES JSC",url:"https://api.khoindvn.io.vn/REVuA5"},
+    {logo:"ngisk.png",name:"KSign",desc:"PowerChina International Group Limited",url:"https://api.khoindvn.io.vn/NyEYpb"},
+    {logo:"ngisk.png",name:"KSign",desc:"Luoyang Postal Administration",url:"https://api.khoindvn.io.vn/h5ZX40"},
+    {logo:"ngisk.png",name:"KSign",desc:"Commission on Elections",url:"https://api.khoindvn.io.vn/Esx6ba"},
+    {logo:"ngisk.png",name:"KSign",desc:"CHIBA INSTITUTE OF TECHNOLOGY",url:"https://api.khoindvn.io.vn/N7lNfm"},
+    {logo:"ngisk.png",name:"KSign",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/9LLTsM"},
+    {logo:"ngisk.png",name:"KSign",desc:"Qingdao Rural Commercial Bank Co., Ltd",url:"https://api.khoindvn.io.vn/2rSU4B"}
+  ],
   list2: [
     {logo:"snd.png",name:"Dns Profile",desc:"",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1/byharambro.mobileconfig"},
     {logo:"snd.png",name:"Dns Profile",desc:"Config",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1/bypassrevokedns.mobileconfig"},
     {logo:"gnise.png",name:"ESign İpa",desc:"ipa file",url:"https://github.com/404turkh/404/releases/download/%EA%B3%A1/esign.ipa"},
-    {logo:"ngisk.png",name:"KSign ✅",desc:"XL AXIATA, PT TBK",url:"https://api.khoindvn.io.vn/JnAsbd"},
     {logo:"gnise.png",name:"ESign ✅",desc:"XL AXIATA, PT TBK",url:"https://api.khoindvn.eu.org/oxe83o"},
     {logo:"gnise.png",name:"ESign",desc:"BOC International (China) Limited",url:"https://api.khoindvn.io.vn/XHJQcD"},
     {logo:"gnise.png",name:"ESign BOC V1",desc:"BOC International (China) Limited",url:"https://api.khoindvn.io.vn/XPhn8L"},
@@ -405,7 +419,7 @@ const data = {
 };
 
 function getButtonText(list, index) {
-  if (list === "list3" || list === "list4" || list === "list5") return "DOWNLOAD";
+  if (list === "list1" || list === "list3" || list === "list4" || list === "list5") return "DOWNLOAD";
   if (list === "list2" && (index === 0 || index === 1 || index === 2)) return "DOWNLOAD";
   return "INSTALL";
 }
