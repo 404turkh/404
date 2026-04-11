@@ -382,11 +382,11 @@ const data = {
     {logo:"gnise.png",name:"ESign GLOBAL V7",desc:"GLOBAL TAKEOFF, INC",url:"https://api.khoindvn.io.vn/hRFlJo"}
   ],
   list3: [
-    {logo:"raga.png",name:"Agar.io",desc:"Myu mod 2.30.8",url:"https://github.com/404turkh/404/releases/download/%E3%83%9D/2.30.8.myu.ipa"},
     {logo:"raga.png",name:"Agar.io",desc:"Shark mod 26.5.0",url:"https://github.com/404turkh/404/releases/download/%E3%83%9D/26.5.0.shark.ipa"},
     {logo:"raga.png",name:"Agar.io",desc:"Coinskinfree mod 26.5.0",url:"https://github.com/404turkh/404/releases/download/%E3%83%9D/26.5.0.coinskins.ipa"},
     {logo:"raga.png",name:"Agar.io",desc:"Kahraba Mod 26.5.0",url:"https://github.com/404turkh/404/releases/download/%E3%83%9D/26.5.0.kahraba.ipa"},
     {logo:"raga.png",name:"Agar.io",desc:"Kahraba Mod autoclicker 26.5.0",url:"https://github.com/404turkh/404/releases/download/%E3%83%9D/26.5.0.khb+autoclicker.ipa"},
+    {logo:"raga.png",name:"Agar.io",desc:"Kahraba+Shark 26.5.0",url:"https://github.com/404turkh/404/releases/download/%E3%83%9D/26.5.0.kahraba+shark.ipa"},
     {logo:"raga.png",name:"Agar.io",desc:"ctrl 26.5.0",url:"https://github.com/404turkh/404/releases/download/%E3%83%9D/26.5.0.ctrl.ipa"},
     {logo:"raga.png",name:"Agar.io",desc:"Biteskin mod 26.5.0",url:"https://github.com/404turkh/404/releases/download/%E3%83%9D/26.5.0.biteskins.ipa"},
     {logo:"raga.png",name:"Agar.io",desc:"Memedit mod 26.5.0",url:"https://github.com/404turkh/404/releases/download/%E3%83%9D/26.5.0.memedit.ipa"},
