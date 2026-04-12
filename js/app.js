@@ -424,7 +424,6 @@ function getButtonText(list, index) {
   if (list === "list2" && (index === 0 || index === 1 || index === 2)) return "DOWNLOAD";
   return "INSTALL";
 }
-}
 
 function updateCategoryUI(list) {
   const meta = categoryMeta[list] || { title: "Library", desc: "Browse available items." };
