@@ -419,9 +419,11 @@ const data = {
 };
 
 function getButtonText(list, index) {
-  if (list === "list1" || list === "list3" || list === "list4" || list === "list5") return "DOWNLOAD";
+  if (list === "list1") return "INSTALL";
+  if (list === "list3" || list === "list4" || list === "list5") return "DOWNLOAD";
   if (list === "list2" && (index === 0 || index === 1 || index === 2)) return "DOWNLOAD";
   return "INSTALL";
+}
 }
 
 function updateCategoryUI(list) {
